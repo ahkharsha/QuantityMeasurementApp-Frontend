@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantity Measurement</title>
+
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .header-gradient {
+            background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .type-card {
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 2px solid transparent;
+        }
+
+        .type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-active {
+            border-color: #0dcaf0;
+            background-color: #f0fdfa;
+        }
+
+        .icon-large {
+            font-size: 2.5rem;
+            color: #0d6efd;
+            margin-bottom: 10px;
+        }
+
+        .action-btn {
+            border-radius: 20px;
+            padding: 10px 30px;
+            font-weight: 600;
+        }
+
+        /* Custom class to freeze inputs without changing their look */
+        .frozen-input {
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header-gradient text-center mb-5">
+        <h1 class="display-6 fw-bold">Quantity Measurement App</h1>
+    </header>
+
+    <div class="container pb-5">
+        <h5 class="text-secondary fw-bold mb-3 text-center">CHOOSE TYPE</h5>
+        <div class="row justify-content-center g-4 mb-5">
+            <div class="col-6 col-md-3">
+                <div class="card type-card card-active text-center p-3 h-100 shadow-sm" data-type="Length">
+                    <div class="card-body">
+                        <i class="bi bi-rulers icon-large"></i>
+                        <h6 class="card-title fw-bold mt-2">Length</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card type-card text-center p-3 h-100 shadow-sm" data-type="Weight">
+                    <div class="card-body">
+                        <i class="bi bi-speedometer2 icon-large text-warning"></i>
+                        <h6 class="card-title fw-bold mt-2">Weight</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card type-card text-center p-3 h-100 shadow-sm" data-type="Temperature">
+                    <div class="card-body">
+                        <i class="bi bi-thermometer-half icon-large text-danger"></i>
+                        <h6 class="card-title fw-bold mt-2">Temperature</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card type-card text-center p-3 h-100 shadow-sm" data-type="Volume">
+                    <div class="card-body">
+                        <i class="bi bi-cup-straw icon-large text-info"></i>
+                        <h6 class="card-title fw-bold mt-2">Volume</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="text-secondary fw-bold mb-3 text-center">CHOOSE ACTION</h5>
+        <div class="d-flex justify-content-center flex-wrap gap-3 mb-4">
+            <button class="btn btn-primary action-btn active shadow-sm" data-action="Conversion">Conversion</button>
+            <button class="btn btn-light action-btn shadow-sm text-secondary border"
+                data-action="Comparison">Comparison</button>
+            <button class="btn btn-light action-btn shadow-sm text-secondary border"
+                data-action="Arithmetic">Arithmetic</button>
+        </div>
+
+        <div id="operator-selector" class="d-flex justify-content-center gap-2 mb-4" style="display: none;">
+            <button class="btn btn-outline-secondary operator-btn" data-op="+">+</button>
+            <button class="btn btn-outline-secondary operator-btn" data-op="-">-</button>
+            <button class="btn btn-outline-secondary operator-btn" data-op="*">×</button>
+            <button class="btn btn-outline-secondary operator-btn" data-op="/">÷</button>
+        </div>
+
+        <div class="row justify-content-center g-4">
+            <div class="col-md-5">
+                <label class="form-label fw-bold text-dark">FROM</label>
+                <div class="input-group input-group-lg mb-3 shadow-sm">
+                    <input type="number" id="from-value" class="form-control" placeholder="0">
+                </div>
+                <select id="from-unit" class="form-select form-select-lg shadow-sm"></select>
+            </div>
+
+            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                <i class="bi bi-arrow-left-right fs-2 text-secondary d-none d-md-block"></i>
+            </div>
+
+            <div class="col-md-5">
+                <label class="form-label fw-bold text-dark">TO</label>
+                <div class="input-group input-group-lg mb-3 shadow-sm">
+                    <input type="number" id="to-value" class="form-control" placeholder="0" readonly>
+                </div>
+                <select id="to-unit" class="form-select form-select-lg shadow-sm"></select>
+            </div>
+        </div>
+
+        <div class="text-center my-5">
+            <h2 class="display-4 fw-bold text-success">
+                <span id="result-value"></span> <span id="result-unit" class="fs-4"></span>
+            </h2>
+        </div>
+
+        <div class="mt-5">
+            <h5 class="text-secondary fw-bold mb-3">HISTORY</h5>
+            <div class="card shadow-sm p-3">
+                <ul id="history-list" class="list-unstyled mb-0">
+                    <li class="text-muted">No history yet.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
