@@ -5,9 +5,12 @@ A vanilla JavaScript web application for converting, comparing, and performing a
 ## Features Implemented
 
 ### UC1: Create JSON Server Database
-
 - **Database Initialization:** Established a robust `db.json` schema utilizing `json-server` to mock a REST API, providing dedicated endpoints for `units`, `conversions`, and `history`.
 - **Data Seeding:** Populated the database with comprehensive records for Length, Weight, Temperature, and Volume, including both multiplier factors and specific evaluation formulas (e.g., Celsius to Fahrenheit) to support future dynamic runtime calculations.
+
+### UC2: App Initialisation
+* **Global State Management:** Implemented a centralized `state` object in `app.js` to synchronously track selected measurement types, actions, input values, and mathematical operators across the application lifecycle.
+* **Asynchronous Lifecycle Bootstrapping:** Configured a `DOMContentLoaded` event listener to autonomously trigger initial data fetching (`loadUnits`) on page load, incorporating try/catch exception handling to safely update the UI if the mock REST API is offline.
 
 ## Tech Stack
 
