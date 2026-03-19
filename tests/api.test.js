@@ -5,7 +5,7 @@
  * @version 1.0
  */
 
-import { getUnits, BASE_URL } from '../js/api.js';
+import { getUnits, getConversion, BASE_URL } from '../js/api.js';
 import { jest } from '@jest/globals';
 
 describe('UC-JS-03: Fetch Units by Type', () => {
@@ -53,5 +53,42 @@ describe('UC-JS-03: Fetch Units by Type', () => {
         global.fetch.mockRejectedValueOnce(new TypeError('Failed to fetch'));
 
         await expect(getUnits('Weight')).rejects.toThrow('Failed to fetch');
+    });
+});
+
+describe('UC-JS-04: Fetch Conversion Record', () => {
+    
+    beforeEach(() => {
+        global.fetch = jest.fn();
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
+    // Validates that it queries the correct url and unwraps the json-server array
+    test('should fetch conversion record and return the first match', async () => {
+        const mockConversion = [{ id: "1", from: "m", to: "cm", factor: 100, formula: null }];
+
+        global.fetch.mockResolvedValueOnce({
+            ok: true,
+            json: async () => mockConversion
+        });
+
+        const data = await getConversion('m', 'cm');
+        
+        expect(global.fetch).toHaveBeenCalledTimes(1);
+        expect(global.fetch).toHaveBeenCalledWith(`${BASE_URL}/conversions?from=m&to=cm`);
+        expect(data).toEqual(mockConversion[0]);
+    });
+
+    // Validates safe handling of missing elements via json-server empty array responses
+    test('should throw "No conversion found" error when the returned array is empty', async () => {
+        global.fetch.mockResolvedValueOnce({
+            ok: true,
+            json: async () => []
+        });
+
+        await expect(getConversion('kg', 'm')).rejects.toThrow('No conversion found');
     });
 });

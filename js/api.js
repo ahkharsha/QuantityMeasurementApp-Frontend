@@ -22,3 +22,25 @@ export async function getUnits(type) {
     
     return await res.json();
 }
+
+/**
+ * Fetches the conversion factor or formula between two units.
+ * @param {string} from - The symbol of the source unit (e.g., "m")
+ * @param {string} to - The symbol of the target unit (e.g., "cm")
+ * @returns {Promise<Object>} The conversion object containing factor or formula
+ * @throws {Error} If no conversion exists or the request fails
+ */
+export async function getConversion(from, to) {
+    const res = await fetch(`${BASE_URL}/conversions?from=${from}&to=${to}`);
+    
+    if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+    }
+    
+    const data = await res.json();
+    if (!data || data.length === 0) {
+        throw new Error("No conversion found");
+    }
+    
+    return data[0];
+}

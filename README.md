@@ -16,6 +16,10 @@ A vanilla JavaScript web application for converting, comparing, and performing a
 - **REST Integration:** Created the `api.js` module to dynamically fetch context-specific measurement units from the local JSON Server endpoint (`/units?type=...`) via the native JavaScript Fetch API.
 - **Error Handling & Testing:** Implemented HTTP status validation for bulletproof network requests, and verified all outcomes by fully mocking the fetch module within the new `api.test.js` suite.
 
+### UC4: Fetch Conversion Record
+- **Conversion Data Retrieval:** Expanded the API module with `getConversion(from, to)` to isolate the specific calculation factor or formula required between two selected units.
+- **Empty State Exceptions:** Engineered the function to detect and throw descriptive errors when attempting unsupported conversions that return empty arrays from the mock backend.
+
 ## Tech Stack
 
 - HTML5 / CSS3 / Bootstrap 5
