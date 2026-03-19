@@ -12,6 +12,10 @@ A vanilla JavaScript web application for converting, comparing, and performing a
 * **Global State Management:** Implemented a centralized `state` object in `app.js` to synchronously track selected measurement types, actions, input values, and mathematical operators across the application lifecycle.
 * **Asynchronous Lifecycle Bootstrapping:** Configured a `DOMContentLoaded` event listener to autonomously trigger initial data fetching (`loadUnits`) on page load, incorporating try/catch exception handling to safely update the UI if the mock REST API is offline.
 
+### UC3: Fetch Units by Type
+- **REST Integration:** Created the `api.js` module to dynamically fetch context-specific measurement units from the local JSON Server endpoint (`/units?type=...`) via the native JavaScript Fetch API.
+- **Error Handling & Testing:** Implemented HTTP status validation for bulletproof network requests, and verified all outcomes by fully mocking the fetch module within the new `api.test.js` suite.
+
 ## Tech Stack
 
 - HTML5 / CSS3 / Bootstrap 5
