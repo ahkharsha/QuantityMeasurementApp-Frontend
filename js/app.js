@@ -37,8 +37,33 @@ const loadUnits = async (type) => {
 
 const attachEventListeners = () => {
     const typeSelector = document.querySelector(".type-container");
+    const actionSelector = document.querySelector(".action-container");
+    const operators = document.querySelectorAll(".operator-btn");
     const fromInput = document.querySelector("#from-value");
     const toInput = document.querySelector("#to-value");
+
+    document.querySelectorAll(".action-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const newAction = e.currentTarget.dataset.action;
+            if (!newAction) return;
+
+            state.action = newAction;
+            setActive(actionSelector, e.currentTarget, ".action-btn");
+            toggleOperators(state.action === "Arithmetic");
+
+            if (fromInput) fromInput.value = "";
+            if (toInput) toInput.value = "";
+            showResult(0, "");
+
+            state.fromVal = null;
+            state.toVal = null;
+            state.operator = "+";
+
+            operators.forEach(ob => ob.classList.remove("active"));
+            const plusBtn = document.querySelector('.operator-btn[data-op="+"]');
+            if (plusBtn) plusBtn.classList.add("active");
+        });
+    });
 
     document.querySelectorAll(".type-card").forEach(card => {
         card.addEventListener("click", async (e) => {

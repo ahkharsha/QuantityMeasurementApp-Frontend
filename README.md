@@ -60,6 +60,14 @@ A clean Vanilla JavaScript app for converting, comparing, and doing math with di
 - **Build Timelines:** Engineered `renderHistory` to natively transform sets of saved database records into visibly stacked HTML list items.
 - **Graceful Fallbacks:** Safely intercepts empty, null, or missing lists by cleanly projecting a `"No history yet."` placeholder sentence rather than throwing layout crashes.
 
+### UC15: Handle Type Card Click
+- **Interactive UI Types:** Connected the Length, Temperature, and Volume cards natively so clicking them correctly updates the app's internal engine state.
+- **Smart Form Reset:** Clicking a new Type Card safely auto-clears any old input values and immediately fetches the correct specific units from the backend to refresh the dropdowns securely.
+
+### UC16: Handle Action Tab Click
+- **Mode Switching:** Clicking between "Conversion" and "Arithmetic" instantly updates the underlying math engine's state configuration.
+- **Dynamic Cleanups:** Safely flushes old input values, purges numerical results, and hides or shows the math operator row strictly on demand natively.
+
 ## Tech Stack
 
 - HTML5 / CSS3 / Bootstrap 5

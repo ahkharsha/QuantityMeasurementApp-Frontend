@@ -74,3 +74,44 @@ describe('UC-JS-15: Handle Type Card Click', () => {
         expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining("type=Temperature"));
     });
 });
+
+describe('UC-JS-16: Handle Action Tab Click', () => {
+    beforeEach(() => {
+        document.body.innerHTML = `
+            <div class="action-container">
+                <button class="action-btn active" data-action="Conversion">Conv</button>
+                <button class="action-btn" data-action="Arithmetic" id="arithmetic-tab">Arith</button>
+            </div>
+            <div id="operator-selector" style="display: none;">
+                <button class="operator-btn" data-op="+">+</button>
+                <button class="operator-btn" data-op="-">-</button>
+            </div>
+            <input id="from-value" value="10" />
+            <input id="to-value" value="20" />
+            <span id="result-value"></span>
+            <span id="result-unit"></span>
+        `;
+        const event = new Event('DOMContentLoaded');
+        document.dispatchEvent(event);
+    });
+
+    test('should update states, clear inputs, and toggle operators when clicking Arithmetic', () => {
+        const arithTab = document.querySelector('#arithmetic-tab');
+        
+        arithTab.click();
+
+        // 1. State updated
+        expect(state.action).toBe("Arithmetic");
+        expect(state.operator).toBe("+");
+        expect(state.fromVal).toBeNull();
+        expect(state.toVal).toBeNull();
+
+        // 2. Inputs cleared
+        expect(document.querySelector("#from-value").value).toBe("");
+        expect(document.querySelector("#to-value").value).toBe("");
+
+        // 3. UI Operators updated visually
+        expect(document.querySelector('#operator-selector').style.display).toBe('flex');
+        expect(document.querySelector('.operator-btn[data-op="+"]').classList.contains('active')).toBe(true);
+    });
+});
