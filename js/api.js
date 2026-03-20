@@ -70,3 +70,23 @@ export async function saveHistory(record) {
         return null;
     }
 }
+
+/**
+ * Fetches all history records from the database, sorted newest-first.
+ * Retrieves an empty array upon network failures to ensure the UI doesn't crash.
+ * @returns {Promise<Array>} List of history objects or empty array over offline
+ */
+export async function getHistory() {
+    try {
+        const res = await fetch(`${BASE_URL}/history?_sort=timestamp&_order=desc`);
+        
+        if (!res.ok) {
+            throw new Error(`HTTP ${res.status}`);
+        }
+        
+        return await res.json();
+    } catch (error) {
+        console.error("Failed to fetch history data:", error);
+        return [];
+    }
+}

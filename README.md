@@ -24,6 +24,10 @@ A vanilla JavaScript web application for converting, comparing, and performing a
 - **Analytics Persistence:** Implemented the `saveHistory(record)` POST request within `api.js` to dispatch successfully calculated logs to the backend.
 - **Non-Blocking Telemetry:** Designed the network interaction to elegantly suppress and log connection errors, guaranteeing the core application remains fully functional even if history storage randomly goes offline.
 
+### UC6: Load History
+- **Historical Data Retrieval:** Implemented the `getHistory()` pipeline to fetch the complete chronological log of mathematical calculations, sorting automatically for newest-first rendering.
+- **Fail-Safe Offline Mode:** Built a resilient network boundary that automatically intercepts disconnection errors and maps them to an empty dataset, preventing UI crashes without throwing backend exceptions.
+
 ## Tech Stack
 
 - HTML5 / CSS3 / Bootstrap 5

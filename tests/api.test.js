@@ -5,7 +5,7 @@
  * @version 1.0
  */
 
-import { getUnits, getConversion, saveHistory, BASE_URL } from '../js/api.js';
+import { getUnits, getConversion, saveHistory, getHistory, BASE_URL } from '../js/api.js';
 import { jest } from '@jest/globals';
 
 describe('UC-JS-03: Fetch Units by Type', () => {
@@ -134,6 +134,49 @@ describe('UC-JS-05: Save to History', () => {
         const data = await saveHistory({ test: "data" });
         
         expect(data).toBeNull();
+        expect(consoleErrorSpy).toHaveBeenCalled();
+    });
+});
+
+describe('UC-JS-06: Load History', () => {
+    let consoleErrorSpy;
+
+    beforeEach(() => {
+        global.fetch = jest.fn();
+        consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
+    // Verifies valid sorted API fetching logic
+    test('should fetch and return sorted history records', async () => {
+        const mockRecords = [
+            { id: "2", type: "Weight", result: "20", timestamp: "9999" },
+            { id: "1", type: "Length", result: "10", timestamp: "1111" }
+        ];
+
+        global.fetch.mockResolvedValueOnce({
+            ok: true,
+            json: async () => mockRecords
+        });
+
+        const data = await getHistory();
+        
+        expect(global.fetch).toHaveBeenCalledTimes(1);
+        expect(global.fetch).toHaveBeenCalledWith(`${BASE_URL}/history?_sort=timestamp&_order=desc`);
+        expect(data).toEqual(mockRecords);
+        expect(consoleErrorSpy).not.toHaveBeenCalled();
+    });
+
+    // Confirms offline state is safely mitigated into rendering an empty array
+    test('should suppress connection errors and return empty array', async () => {
+        global.fetch.mockRejectedValueOnce(new TypeError('Failed to fetch'));
+
+        const data = await getHistory();
+        
+        expect(data).toEqual([]);
         expect(consoleErrorSpy).toHaveBeenCalled();
     });
 });
