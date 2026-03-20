@@ -5,7 +5,7 @@
  * @version 1.0
  */
 
-import { applyConversion, evaluateExpression } from '../js/conversion.js';
+import { applyConversion, evaluateExpression, compareValues } from '../js/conversion.js';
 
 describe('UC-JS-07: Apply Conversion Factor or Formula', () => {
 
@@ -58,5 +58,19 @@ describe('UC-JS-08: Evaluate Arithmetic Expression', () => {
         expect(() => evaluateExpression(10, 5, '*')).toThrow("Invalid operator");
         expect(() => evaluateExpression(10, 5, '/')).toThrow("Invalid operator");
         expect(() => evaluateExpression(10, 5, 'add')).toThrow("Invalid operator");
+    });
+});
+
+describe('UC-JS-09: Compare Two Measurement Values', () => {
+
+    test('should return exactly GREATER, LESS, or EQUAL statements correctly', () => {
+        expect(compareValues(2, 'kg', 100, 'g', 2000, 100)).toBe("2 kg is GREATER than 100 g");
+        expect(compareValues(5, 'cm', 1, 'm', 0.05, 1)).toBe("5 cm is LESS than 1 m");
+        expect(compareValues(10, 'mm', 1, 'cm', 0.01, 0.01)).toBe("10 mm is EQUAL to 1 cm");
+    });
+
+    test('should return fallback invalid sentence if base values are NaN', () => {
+        expect(compareValues(2, 'kg', 100, 'g', NaN, 100)).toBe("Invalid values — cannot compare");
+        expect(compareValues(2, 'kg', 100, 'g', 2000, NaN)).toBe("Invalid values — cannot compare");
     });
 });

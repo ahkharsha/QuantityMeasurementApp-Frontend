@@ -65,3 +65,29 @@ export function evaluateExpression(val1, val2, operator) {
 
     throw new Error("Invalid operator");
 }
+
+/**
+ * Compares two converted measurements against their normalized base units.
+ * @param {number} v1 - Original value 1
+ * @param {string} u1 - Original unit 1
+ * @param {number} v2 - Original value 2
+ * @param {string} u2 - Original unit 2
+ * @param {number} base1 - Value 1 converted to base unit
+ * @param {number} base2 - Value 2 converted to base unit
+ * @returns {string} A human-readable comparison sentence
+ */
+export function compareValues(v1, u1, v2, u2, base1, base2) {
+    if (Number.isNaN(base1) || Number.isNaN(base2)) {
+        return "Invalid values — cannot compare";
+    }
+
+    if (base1 > base2) {
+        return `${v1} ${u1} is GREATER than ${v2} ${u2}`;
+    }
+    
+    if (base1 < base2) {
+        return `${v1} ${u1} is LESS than ${v2} ${u2}`;
+    }
+
+    return `${v1} ${u1} is EQUAL to ${v2} ${u2}`;
+}

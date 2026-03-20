@@ -1,51 +1,55 @@
 # Quantity Measurement App
 
-A vanilla JavaScript web application for converting, comparing, and performing arithmetic on different units of measurement, designed with modular ES6 patterns and a RESTful mock backend.
+A clean Vanilla JavaScript app for converting, comparing, and doing math with different measurements, using a local database.
 
 ## Features Implemented
 
-### UC1: Create JSON Server Database
-- **Database Initialization:** Established a robust `db.json` schema utilizing `json-server` to mock a REST API, providing dedicated endpoints for `units`, `conversions`, and `history`.
-- **Data Seeding:** Populated the database with comprehensive records for Length, Weight, Temperature, and Volume, including both multiplier factors and specific evaluation formulas (e.g., Celsius to Fahrenheit) to support future dynamic runtime calculations.
+### UC1: Create Database
+- **Setup Database:** Created a local `db.json` file to store units, conversion math, and history.
+- **Add Data:** Filled it with starting data for Length, Weight, Temperature, and Volume to make calculations work.
 
-### UC2: App Initialisation
-* **Global State Management:** Implemented a centralized `state` object in `app.js` to synchronously track selected measurement types, actions, input values, and mathematical operators across the application lifecycle.
-* **Asynchronous Lifecycle Bootstrapping:** Configured a `DOMContentLoaded` event listener to autonomously trigger initial data fetching (`loadUnits`) on page load, incorporating try/catch exception handling to safely update the UI if the mock REST API is offline.
+### UC2: App Initialization
+- **Track App State:** Created a `state` object so the app remembers what the user selected.
+- **Load On Startup:** Made the app automatically fetch database info when the page loads, and safely handle server errors.
 
-### UC3: Fetch Units by Type
-- **REST Integration:** Created the `api.js` module to dynamically fetch context-specific measurement units from the local JSON Server endpoint (`/units?type=...`) via the native JavaScript Fetch API.
-- **Error Handling & Testing:** Implemented HTTP status validation for bulletproof network requests, and verified all outcomes by fully mocking the fetch module within the new `api.test.js` suite.
+### UC3: Fetch Units 
+- **Get Units from Server:** Created `api.js` to securely load specific units (like all "Weight" units) from the database.
+- **Handle Network Drops:** Added code to catch offline connection errors safely, proven by automated tests.
 
-### UC4: Fetch Conversion Record
-- **Conversion Data Retrieval:** Expanded the API module with `getConversion(from, to)` to isolate the specific calculation factor or formula required between two selected units.
-- **Empty State Exceptions:** Engineered the function to detect and throw descriptive errors when attempting unsupported conversions that return empty arrays from the mock backend.
+### UC4: Fetch Conversions
+- **Get Math Rules:** Added a function to securely fetch the exact multiplier or formula needed to convert two units.
+- **Catch Missing Pairs:** Made sure the app safely throws a clear error if it tries to convert an unsupported pair.
 
 ### UC5: Save to History
-- **Analytics Persistence:** Implemented the `saveHistory(record)` POST request within `api.js` to dispatch successfully calculated logs to the backend.
-- **Non-Blocking Telemetry:** Designed the network interaction to elegantly suppress and log connection errors, guaranteeing the core application remains fully functional even if history storage randomly goes offline.
+- **Record History:** Added a function to send successful calculations back directly to the local database.
+- **Prevent Crashes:** If saving fails because the server is offline, the app quietly ignores the error instead of crashing.
 
 ### UC6: Load History
-- **Historical Data Retrieval:** Implemented the `getHistory()` pipeline to fetch the complete chronological log of mathematical calculations, sorting automatically for newest-first rendering.
-- **Fail-Safe Offline Mode:** Built a resilient network boundary that automatically intercepts disconnection errors and maps them to an empty dataset, preventing UI crashes without throwing backend exceptions.
+- **Load Past Records:** Downloaded all previous calculations, automatically sorting them so the newest ones appear first.
+- **Offline Fallback:** If the network drops, the app safely skips loading history to ensure the screen doesn't break.
 
 ### UC7: Apply Conversion
-- **Mathematical Evaluation Engine:** Introduced the `conversion.js` module to dynamically scale standard multiplication factors or securely execute algorithmic string formulas queried from the database.
-- **Precision Floating Point Safety:** Hardened the unit resolver to natively swallow `NaN` inconsistencies, ignore identical unit transformations, and strictly truncate all mathematical outputs down to 6 reliable decimal places.
+- **Calculate Math:** Created `conversion.js` to securely calculate math, like multiplying by factors or evaluating formulas.
+- **Keep Numbers Clean:** Blocked bad inputs and made sure answers are cleanly rounded to 6 decimal places to prevent messy displays.
 
-### UC8: Evaluate Arithmetic Expression
-- **Floating-Point Arithmetic Stabilisation:** Expanded the calculation module with `evaluateExpression` to flawlessly resolve basic additions and subtractions without triggering JavaScript's inherent binary float representation quirks.
-- **Strict Operator Isolation:** Explicitly locked down mathematical evaluations strictly to validated `+` or `-` inputs natively, instantly rejecting unauthorized operations or invalid numerical types with explicit exception errors.
+### UC8: Arithmetic Operations
+- **Add and Subtract:** Built a safe math tool to explicitly add or subtract two measurements together.
+- **Fix Decimals:** Prevented messy native JavaScript floating-point errors (where 0.1 + 0.2 gives `0.3000...4`).
+
+### UC9: Compare Values
+- **Compare Measurements:** Added code to securely evaluate whether one measurement is bigger, smaller, or equal to another.
+- **Readable Sentences:** Returns clean, human-friendly sentences explaining the final comparison.
 
 ## Tech Stack
 
 - HTML5 / CSS3 / Bootstrap 5
-- Vanilla JavaScript (ES6+ Modules)
-- JSON Server (Mock API)
+- Vanilla JavaScript
+- JSON Server
 - Jest (Testing)
 
 ## How to Run
 
-1. Open a terminal in the project root and run `npm install` to load dependencies.
-2. Start the mock backend by running `npm start`.
-3. Open `index.html` in your web browser (or use VS Code Live Server) to view the application.
-4. **To run tests:** Execute `npm test` in the terminal to run the Jest test suite.
+1. Open your terminal and run `npm install`.
+2. Start the database by running `npm start`.
+3. Open `index.html` in your web browser (or VS Code Live Server).
+4. **To run tests:** Enter `npm test` to verify the automated tests.
