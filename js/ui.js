@@ -78,3 +78,17 @@ export function showResult(value, unitSymbol) {
         }, 1500);
     }
 }
+
+/**
+ * Shows or hides the arithmetic operator buttons row.
+ * @param {boolean} show - True to display the row, false to hide it
+ */
+export function toggleOperators(show) {
+    const opRow = document.querySelector("#operator-selector");
+    if (!opRow) {
+        console.warn("Operator selector row not found in DOM");
+        return;
+    }
+    
+    opRow.style.display = show ? "flex" : "none";
+}

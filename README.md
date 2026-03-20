@@ -52,6 +52,10 @@ A clean Vanilla JavaScript app for converting, comparing, and doing math with di
 - **Display Answers:** Added `showResult` to cleanly project final math calculations and comparison sentences directly onto the screen.
 - **Visual Feedback:** Built a smooth highlight animation that flashes on the result box for exactly 1.5 seconds so users know their math finished loading.
 
+### UC13: Toggle Operator Row
+- **Hide Math Buttons:** Built `toggleOperators` to instantly hide or show the `+`/`-`/`*`/`/` buttons based on what the user is doing.
+- **Fail-Safe Targeting:** Safe logic ensures the app won't crash even if the operator buttons are entirely missing from the page.
+
 ## Tech Stack
 
 - HTML5 / CSS3 / Bootstrap 5

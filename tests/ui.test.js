@@ -6,7 +6,7 @@
  * @jest-environment jsdom
  */
 
-import { populateDropdown, setActive, showResult } from '../js/ui.js';
+import { populateDropdown, setActive, showResult, toggleOperators } from '../js/ui.js';
 import { jest } from '@jest/globals';
 
 describe('UC-JS-10: Populate Unit Dropdown', () => {
@@ -136,5 +136,39 @@ describe('UC-JS-12: Show Result', () => {
 
         jest.advanceTimersByTime(500);
         expect(panel.classList.contains('highlight')).toBe(false);
+    });
+});
+
+describe('UC-JS-13: Toggle Operator Row', () => {
+    let opRow;
+    let consoleWarnSpy;
+
+    beforeEach(() => {
+        document.body.innerHTML = `
+            <div id="operator-selector" style="display: none;"></div>
+        `;
+        opRow = document.querySelector('#operator-selector');
+        consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
+    test('should set display to flex when show is true', () => {
+        toggleOperators(true);
+        expect(opRow.style.display).toBe('flex');
+    });
+
+    test('should set display to none when show is false', () => {
+        opRow.style.display = 'flex'; // Initial state
+        toggleOperators(false);
+        expect(opRow.style.display).toBe('none');
+    });
+
+    test('should log warning and safely return if element is missing', () => {
+        document.body.innerHTML = ''; // Remove the element
+        toggleOperators(true);
+        expect(consoleWarnSpy).toHaveBeenCalledWith("Operator selector row not found in DOM");
     });
 });
