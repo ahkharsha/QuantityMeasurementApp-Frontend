@@ -56,6 +56,10 @@ A clean Vanilla JavaScript app for converting, comparing, and doing math with di
 - **Hide Math Buttons:** Built `toggleOperators` to instantly hide or show the `+`/`-`/`*`/`/` buttons based on what the user is doing.
 - **Fail-Safe Targeting:** Safe logic ensures the app won't crash even if the operator buttons are entirely missing from the page.
 
+### UC14: Render History List
+- **Build Timelines:** Engineered `renderHistory` to natively transform sets of saved database records into visibly stacked HTML list items.
+- **Graceful Fallbacks:** Safely intercepts empty, null, or missing lists by cleanly projecting a `"No history yet."` placeholder sentence rather than throwing layout crashes.
+
 ## Tech Stack
 
 - HTML5 / CSS3 / Bootstrap 5

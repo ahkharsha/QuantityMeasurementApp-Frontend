@@ -92,3 +92,30 @@ export function toggleOperators(show) {
     
     opRow.style.display = show ? "flex" : "none";
 }
+
+/**
+ * Renders the history records array into the history list DOM element.
+ * @param {Array} records - Array of calculation history objects
+ */
+export function renderHistory(records) {
+    const list = document.querySelector("#history-list");
+    if (!list) {
+        console.warn("History list container not found in DOM");
+        return;
+    }
+
+    list.innerHTML = "";
+
+    const safeRecords = Array.isArray(records) ? records : [];
+
+    if (safeRecords.length === 0) {
+        list.innerHTML = "<li>No history yet.</li>";
+        return;
+    }
+
+    safeRecords.forEach(r => {
+        const li = document.createElement("li");
+        li.textContent = `${r.expression}  =  ${r.result}  (${new Date(r.timestamp).toLocaleString()})`;
+        list.appendChild(li);
+    });
+}

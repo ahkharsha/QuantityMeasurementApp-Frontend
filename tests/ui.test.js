@@ -6,7 +6,7 @@
  * @jest-environment jsdom
  */
 
-import { populateDropdown, setActive, showResult, toggleOperators } from '../js/ui.js';
+import { populateDropdown, setActive, showResult, toggleOperators, renderHistory } from '../js/ui.js';
 import { jest } from '@jest/globals';
 
 describe('UC-JS-10: Populate Unit Dropdown', () => {
@@ -170,5 +170,54 @@ describe('UC-JS-13: Toggle Operator Row', () => {
         document.body.innerHTML = ''; // Remove the element
         toggleOperators(true);
         expect(consoleWarnSpy).toHaveBeenCalledWith("Operator selector row not found in DOM");
+    });
+});
+
+describe('UC-JS-14: Render History List', () => {
+    let listEl;
+    let consoleWarnSpy;
+
+    beforeEach(() => {
+        document.body.innerHTML = `
+            <ul id="history-list"></ul>
+        `;
+        listEl = document.querySelector('#history-list');
+        consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
+    test('should render "No history yet." if records array is empty', () => {
+        renderHistory([]);
+        expect(listEl.innerHTML).toContain("<li>No history yet.</li>");
+    });
+
+    test('should treat undefined or null records strictly as empty arrays safely', () => {
+        renderHistory(undefined);
+        expect(listEl.innerHTML).toContain("<li>No history yet.</li>");
+    });
+
+    test('should correctly render list items populated with history data', () => {
+        const mockRecords = [
+            { expression: "1 m to cm", result: 100, timestamp: "2026-03-20T10:00:00Z" },
+            { expression: "5 kg to g", result: 5000, timestamp: "2026-03-20T11:00:00Z" }
+        ];
+        
+        renderHistory(mockRecords);
+        const listItems = listEl.querySelectorAll('li');
+        
+        expect(listItems.length).toBe(2);
+        
+        // Assert substrings explicitly exist avoiding exact timezone date comparisons
+        expect(listItems[0].textContent).toContain("1 m to cm  =  100");
+        expect(listItems[1].textContent).toContain("5 kg to g  =  5000");
+    });
+
+    test('should safely intercept missing history list DOM target via console output', () => {
+        document.body.innerHTML = '';
+        renderHistory([]);
+        expect(consoleWarnSpy).toHaveBeenCalledWith("History list container not found in DOM");
     });
 });
