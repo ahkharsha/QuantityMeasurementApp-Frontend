@@ -52,3 +52,29 @@ export function setActive(parentEl, clickedEl, childSelector) {
         clickedEl.classList.add("active");
     }
 }
+
+/**
+ * Displays the calculation result on the screen and triggers a brief highlight animation.
+ * @param {string|number} value - The computed numerical value or a comparison sentence
+ * @param {string} unitSymbol - The resulting unit symbol (or empty string for comparisons)
+ */
+export function showResult(value, unitSymbol) {
+    const resValue = document.querySelector("#result-value");
+    const resUnit = document.querySelector("#result-unit");
+    
+    if (resValue) {
+        resValue.textContent = (value === null || value === undefined) ? "—" : value;
+    }
+    
+    if (resUnit) {
+        resUnit.textContent = unitSymbol || "";
+    }
+
+    const panel = document.querySelector(".result-panel");
+    if (panel) {
+        panel.classList.add("highlight");
+        setTimeout(() => {
+            panel.classList.remove("highlight");
+        }, 1500);
+    }
+}

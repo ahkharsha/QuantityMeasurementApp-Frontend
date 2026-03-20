@@ -48,6 +48,10 @@ A clean Vanilla JavaScript app for converting, comparing, and doing math with di
 - **Manage Selection:** Built `setActive` to flawlessly guarantee only currently clicked buttons or action tabs are highlighted.
 - **Smart Sibling Clearing:** Automatically seeks out natively directly neighboring buttons to safely strip their active statuses.
 
+### UC12: Show Result
+- **Display Answers:** Added `showResult` to cleanly project final math calculations and comparison sentences directly onto the screen.
+- **Visual Feedback:** Built a smooth highlight animation that flashes on the result box for exactly 1.5 seconds so users know their math finished loading.
+
 ## Tech Stack
 
 - HTML5 / CSS3 / Bootstrap 5

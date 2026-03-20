@@ -6,7 +6,7 @@
  * @jest-environment jsdom
  */
 
-import { populateDropdown, setActive } from '../js/ui.js';
+import { populateDropdown, setActive, showResult } from '../js/ui.js';
 import { jest } from '@jest/globals';
 
 describe('UC-JS-10: Populate Unit Dropdown', () => {
@@ -89,5 +89,52 @@ describe('UC-JS-11: Set Active Button', () => {
         // State remains unchanged because parent was null
         expect(document.querySelector('#btn1').classList.contains('active')).toBe(true);
         expect(document.querySelector('#btn2').classList.contains('active')).toBe(false);
+    });
+});
+
+describe('UC-JS-12: Show Result', () => {
+    beforeEach(() => {
+        document.body.innerHTML = `
+            <div class="result-panel">
+                <span id="result-value"></span>
+                <span id="result-unit"></span>
+            </div>
+        `;
+        jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+        jest.runOnlyPendingTimers();
+        jest.useRealTimers();
+    });
+
+    test('should display numeric value and unit correctly', () => {
+        showResult(25.5, 'kg');
+        expect(document.querySelector('#result-value').textContent).toBe('25.5');
+        expect(document.querySelector('#result-unit').textContent).toBe('kg');
+    });
+
+    test('should display dash fallback if value is null', () => {
+        showResult(null, 'm');
+        expect(document.querySelector('#result-value').textContent).toBe('—');
+    });
+
+    test('should handle comparison mode string smoothly without units', () => {
+        showResult("2 kg is GREATER than 100 g", "");
+        expect(document.querySelector('#result-value').textContent).toBe("2 kg is GREATER than 100 g");
+        expect(document.querySelector('#result-unit').textContent).toBe("");
+    });
+
+    test('should trigger highlight animation class correctly for 1500ms', () => {
+        showResult(10, 'm');
+        const panel = document.querySelector('.result-panel');
+        
+        expect(panel.classList.contains('highlight')).toBe(true);
+        
+        jest.advanceTimersByTime(1000);
+        expect(panel.classList.contains('highlight')).toBe(true);
+
+        jest.advanceTimersByTime(500);
+        expect(panel.classList.contains('highlight')).toBe(false);
     });
 });
