@@ -6,7 +6,7 @@
  * @jest-environment jsdom
  */
 
-import { populateDropdown } from '../js/ui.js';
+import { populateDropdown, setActive } from '../js/ui.js';
 import { jest } from '@jest/globals';
 
 describe('UC-JS-10: Populate Unit Dropdown', () => {
@@ -56,5 +56,38 @@ describe('UC-JS-10: Populate Unit Dropdown', () => {
         populateDropdown(null, []);
         
         expect(consoleWarnSpy).toHaveBeenCalledWith("Dropdown element not found in DOM");
+    });
+});
+
+describe('UC-JS-11: Set Active Button', () => {
+    let parentEl;
+
+    beforeEach(() => {
+        document.body.innerHTML = `
+            <div id="button-container">
+                <button class="action-btn active" id="btn1">1</button>
+                <button class="action-btn" id="btn2">2</button>
+                <button class="action-btn" id="btn3">3</button>
+            </div>
+        `;
+        parentEl = document.querySelector('#button-container');
+    });
+
+    test('should add active class to clicked element and remove from siblings', () => {
+        const btn2 = document.querySelector('#btn2');
+        setActive(parentEl, btn2, '.action-btn');
+
+        expect(document.querySelector('#btn1').classList.contains('active')).toBe(false);
+        expect(document.querySelector('#btn2').classList.contains('active')).toBe(true);
+        expect(document.querySelector('#btn3').classList.contains('active')).toBe(false);
+    });
+
+    test('should safely return early if parent element is null', () => {
+        const btn2 = document.querySelector('#btn2');
+        setActive(null, btn2, '.action-btn');
+
+        // State remains unchanged because parent was null
+        expect(document.querySelector('#btn1').classList.contains('active')).toBe(true);
+        expect(document.querySelector('#btn2').classList.contains('active')).toBe(false);
     });
 });

@@ -34,3 +34,21 @@ export function populateDropdown(selectEl, units) {
         selectEl.appendChild(opt);
     });
 }
+
+/**
+ * Sets the "active" CSS class on a clicked element while removing it from all siblings.
+ * @param {HTMLElement} parentEl - The parent container element
+ * @param {HTMLElement} clickedEl - The specific button/card that was clicked
+ * @param {string} childSelector - The CSS selector matching all sibling elements
+ */
+export function setActive(parentEl, clickedEl, childSelector) {
+    if (!parentEl) return;
+    
+    parentEl.querySelectorAll(childSelector).forEach(el => {
+        el.classList.remove("active");
+    });
+    
+    if (clickedEl) {
+        clickedEl.classList.add("active");
+    }
+}

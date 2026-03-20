@@ -40,6 +40,14 @@ A clean Vanilla JavaScript app for converting, comparing, and doing math with di
 - **Compare Measurements:** Added code to securely evaluate whether one measurement is bigger, smaller, or equal to another.
 - **Readable Sentences:** Returns clean, human-friendly sentences explaining the final comparison.
 
+### UC10: Populate Dropdown
+- **Dynamic Options:** Built `populateDropdown` to rebuild HTML `<select>` option elements using backend unit lists.
+- **Fail-Safe DOM:** Securely checks for missing DOM nodes, gracefully degrading to safe console warnings without crashing.
+
+### UC11: Set Active Button
+- **Manage Selection:** Built `setActive` to flawlessly guarantee only currently clicked buttons or action tabs are highlighted.
+- **Smart Sibling Clearing:** Automatically seeks out natively directly neighboring buttons to safely strip their active statuses.
+
 ## Tech Stack
 
 - HTML5 / CSS3 / Bootstrap 5
