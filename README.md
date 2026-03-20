@@ -28,6 +28,10 @@ A vanilla JavaScript web application for converting, comparing, and performing a
 - **Historical Data Retrieval:** Implemented the `getHistory()` pipeline to fetch the complete chronological log of mathematical calculations, sorting automatically for newest-first rendering.
 - **Fail-Safe Offline Mode:** Built a resilient network boundary that automatically intercepts disconnection errors and maps them to an empty dataset, preventing UI crashes without throwing backend exceptions.
 
+### UC7: Apply Conversion
+- **Mathematical Evaluation Engine:** Introduced the `conversion.js` module to dynamically scale standard multiplication factors or securely execute algorithmic string formulas queried from the database.
+- **Precision Floating Point Safety:** Hardened the unit resolver to natively swallow `NaN` inconsistencies, ignore identical unit transformations, and strictly truncate all mathematical outputs down to 6 reliable decimal places.
+
 ## Tech Stack
 
 - HTML5 / CSS3 / Bootstrap 5
