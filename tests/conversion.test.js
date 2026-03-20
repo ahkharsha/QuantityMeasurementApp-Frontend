@@ -5,7 +5,7 @@
  * @version 1.0
  */
 
-import { applyConversion } from '../js/conversion.js';
+import { applyConversion, evaluateExpression } from '../js/conversion.js';
 
 describe('UC-JS-07: Apply Conversion Factor or Formula', () => {
 
@@ -34,5 +34,29 @@ describe('UC-JS-07: Apply Conversion Factor or Formula', () => {
     test('should explicitly throw "Bad formula" when eval crashes', () => {
         const convObj = { from: "X", to: "Y", factor: null, formula: "x / ???" };
         expect(() => applyConversion(10, convObj)).toThrow("Bad formula");
+    });
+});
+
+describe('UC-JS-08: Evaluate Arithmetic Expression', () => {
+
+    test('should correctly add two numbers and bypass JS float quirks securely', () => {
+        expect(evaluateExpression(0.1, 0.2, '+')).toBe(0.3); // 0.1 + 0.2 gives 0.30000000000000004 without truncation!
+        expect(evaluateExpression(10.5, 2.5, '+')).toBe(13);
+    });
+
+    test('should correctly subtract two numbers and round to 6 decimal places', () => {
+        expect(evaluateExpression(0.3, 0.2, '-')).toBe(0.1);
+        expect(evaluateExpression(10, 20, '-')).toBe(-10);
+    });
+
+    test('should explicitly throw "Invalid number" when given NaN or strings', () => {
+        expect(() => evaluateExpression(NaN, 5, '+')).toThrow("Invalid number");
+        expect(() => evaluateExpression(5, "5", '-')).toThrow("Invalid number");
+    });
+
+    test('should explicitly throw "Invalid operator" when given unsupported operation types', () => {
+        expect(() => evaluateExpression(10, 5, '*')).toThrow("Invalid operator");
+        expect(() => evaluateExpression(10, 5, '/')).toThrow("Invalid operator");
+        expect(() => evaluateExpression(10, 5, 'add')).toThrow("Invalid operator");
     });
 });

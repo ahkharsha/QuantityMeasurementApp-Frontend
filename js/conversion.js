@@ -41,3 +41,27 @@ export function applyConversion(value, convObj) {
 
     throw new Error("Bad formula");
 }
+
+/**
+ * Evaluates an arithmetic expression between two numerical values.
+ * @param {number} val1 - The first value
+ * @param {number} val2 - The second value
+ * @param {string} operator - The mathematical operator ("+" or "-")
+ * @returns {number} The computed result scaled to 6 decimal places
+ * @throws {Error} If values or operator are invalid
+ */
+export function evaluateExpression(val1, val2, operator) {
+    if (typeof val1 !== 'number' || Number.isNaN(val1) || typeof val2 !== 'number' || Number.isNaN(val2)) {
+        throw new Error("Invalid number");
+    }
+
+    if (operator === '+') {
+        return parseFloat((val1 + val2).toFixed(6));
+    }
+
+    if (operator === '-') {
+        return parseFloat((val1 - val2).toFixed(6));
+    }
+
+    throw new Error("Invalid operator");
+}

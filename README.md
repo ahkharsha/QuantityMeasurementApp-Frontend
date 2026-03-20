@@ -32,6 +32,10 @@ A vanilla JavaScript web application for converting, comparing, and performing a
 - **Mathematical Evaluation Engine:** Introduced the `conversion.js` module to dynamically scale standard multiplication factors or securely execute algorithmic string formulas queried from the database.
 - **Precision Floating Point Safety:** Hardened the unit resolver to natively swallow `NaN` inconsistencies, ignore identical unit transformations, and strictly truncate all mathematical outputs down to 6 reliable decimal places.
 
+### UC8: Evaluate Arithmetic Expression
+- **Floating-Point Arithmetic Stabilisation:** Expanded the calculation module with `evaluateExpression` to flawlessly resolve basic additions and subtractions without triggering JavaScript's inherent binary float representation quirks.
+- **Strict Operator Isolation:** Explicitly locked down mathematical evaluations strictly to validated `+` or `-` inputs natively, instantly rejecting unauthorized operations or invalid numerical types with explicit exception errors.
+
 ## Tech Stack
 
 - HTML5 / CSS3 / Bootstrap 5
