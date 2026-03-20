@@ -5,6 +5,9 @@
  * @version 1.0
  */
 
+import { getUnits } from './api.js';
+import { populateDropdown, setActive, showResult, toggleOperators, renderHistory } from './ui.js';
+
 // Global state tracking current UI selections
 export const state = {
     type: "Length",
@@ -16,14 +19,49 @@ export const state = {
     operator: "+"
 };
 
-// Local stubs required to satisfy initial lifecycle flow without throwing ReferenceErrors
-const attachEventListeners = () => {};
-const loadUnits = async (type) => {};
-const loadHistory = async () => {};
-const toggleOperators = (show) => {
-    const opRow = document.querySelector("#operator-selector");
-    if (opRow) opRow.style.display = show ? "flex" : "none";
+// Orchestration loadUnits replaces stub
+const loadUnits = async (type) => {
+    try {
+        const units = await getUnits(type);
+        const fromSelect = document.querySelector("#from-unit");
+        const toSelect = document.querySelector("#to-unit");
+        populateDropdown(fromSelect, units);
+        populateDropdown(toSelect, units);
+        state.fromUnit = "";
+        state.toUnit = "";
+    } catch (error) {
+        console.error("Units initialization error:", error);
+        throw error;
+    }
 };
+
+const attachEventListeners = () => {
+    const typeSelector = document.querySelector(".type-container");
+    const fromInput = document.querySelector("#from-value");
+    const toInput = document.querySelector("#to-value");
+
+    document.querySelectorAll(".type-card").forEach(card => {
+        card.addEventListener("click", async (e) => {
+            const newType = e.currentTarget.dataset.type;
+            if (!newType) return;
+
+            state.type = newType;
+            setActive(typeSelector, e.currentTarget, ".type-card");
+
+            if (fromInput) fromInput.value = "";
+            if (toInput) toInput.value = "";
+            showResult(0, "");
+
+            try {
+                await loadUnits(state.type);
+            } catch (err) {
+                // Ignore gracefully as per alternate flow requirements
+            }
+        });
+    });
+};
+
+const loadHistory = async () => {};
 
 /**
  * Initializes the application upon DOM load.
