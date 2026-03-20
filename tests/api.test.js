@@ -5,7 +5,7 @@
  * @version 1.0
  */
 
-import { getUnits, getConversion, BASE_URL } from '../js/api.js';
+import { getUnits, getConversion, saveHistory, BASE_URL } from '../js/api.js';
 import { jest } from '@jest/globals';
 
 describe('UC-JS-03: Fetch Units by Type', () => {
@@ -90,5 +90,50 @@ describe('UC-JS-04: Fetch Conversion Record', () => {
         });
 
         await expect(getConversion('kg', 'm')).rejects.toThrow('No conversion found');
+    });
+});
+
+describe('UC-JS-05: Save to History', () => {
+    let consoleErrorSpy;
+
+    beforeEach(() => {
+        global.fetch = jest.fn();
+        consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
+    // Validates that it dispatches the correctly serialized POST request
+    test('should save history record and return successfully without throwing', async () => {
+        const mockRecord = { type: "Length", action: "Conversion", expression: "1 m to cm", result: "100", timestamp: "12345" };
+        const mockServerResponse = { id: "10", ...mockRecord };
+
+        global.fetch.mockResolvedValueOnce({
+            ok: true,
+            json: async () => mockServerResponse
+        });
+
+        const data = await saveHistory(mockRecord);
+        
+        expect(global.fetch).toHaveBeenCalledTimes(1);
+        expect(global.fetch).toHaveBeenCalledWith(`${BASE_URL}/history`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(mockRecord)
+        });
+        expect(data).toEqual(mockServerResponse);
+        expect(consoleErrorSpy).not.toHaveBeenCalled();
+    });
+
+    // Validates that history persistence is non-blocking when network fails
+    test('should suppress errors and return null when the save request fails', async () => {
+        global.fetch.mockRejectedValueOnce(new TypeError('Failed to fetch'));
+
+        const data = await saveHistory({ test: "data" });
+        
+        expect(data).toBeNull();
+        expect(consoleErrorSpy).toHaveBeenCalled();
     });
 });

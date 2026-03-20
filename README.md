@@ -20,6 +20,10 @@ A vanilla JavaScript web application for converting, comparing, and performing a
 - **Conversion Data Retrieval:** Expanded the API module with `getConversion(from, to)` to isolate the specific calculation factor or formula required between two selected units.
 - **Empty State Exceptions:** Engineered the function to detect and throw descriptive errors when attempting unsupported conversions that return empty arrays from the mock backend.
 
+### UC5: Save to History
+- **Analytics Persistence:** Implemented the `saveHistory(record)` POST request within `api.js` to dispatch successfully calculated logs to the backend.
+- **Non-Blocking Telemetry:** Designed the network interaction to elegantly suppress and log connection errors, guaranteeing the core application remains fully functional even if history storage randomly goes offline.
+
 ## Tech Stack
 
 - HTML5 / CSS3 / Bootstrap 5

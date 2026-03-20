@@ -44,3 +44,29 @@ export async function getConversion(from, to) {
     
     return data[0];
 }
+
+/**
+ * Saves a calculation record to the history database.
+ * @param {Object} record - The details of the calculation
+ * @returns {Promise<Object|null>} The saved record with database ID, or null if failed
+ */
+export async function saveHistory(record) {
+    try {
+        const res = await fetch(`${BASE_URL}/history`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(record)
+        });
+
+        if (!res.ok) {
+            throw new Error(`HTTP ${res.status}`);
+        }
+
+        return await res.json();
+    } catch (error) {
+        console.error("Failed to save history:", error);
+        return null;
+    }
+}
