@@ -1,15 +1,11 @@
-/**
+/*
  * Quantity Measurement App - UI Module
  * Handles DOM manipulation, rendering, and dynamic class toggling.
  * @author Developer
  * @version 1.0
  */
 
-/**
- * Populates a target `<select>` element with a list of unit options.
- * @param {HTMLElement} selectEl - The target select element
- * @param {Array} units - The array of unit objects containing label and symbol
- */
+// Populates a target select element with a list of unit options.
 export function populateDropdown(selectEl, units) {
     if (!selectEl) {
         console.warn("Dropdown element not found in DOM");
@@ -35,29 +31,20 @@ export function populateDropdown(selectEl, units) {
     });
 }
 
-/**
- * Sets the "active" CSS class on a clicked element while removing it from all siblings.
- * @param {HTMLElement} parentEl - The parent container element
- * @param {HTMLElement} clickedEl - The specific button/card that was clicked
- * @param {string} childSelector - The CSS selector matching all sibling elements
- */
-export function setActive(parentEl, clickedEl, childSelector) {
+// Sets the active CSS class on a clicked element while removing it from all siblings.
+export function setActive(parentEl, clickedEl, childSelector, activeClass = "active") {
     if (!parentEl) return;
     
     parentEl.querySelectorAll(childSelector).forEach(el => {
-        el.classList.remove("active");
+        el.classList.remove(activeClass);
     });
     
     if (clickedEl) {
-        clickedEl.classList.add("active");
+        clickedEl.classList.add(activeClass);
     }
 }
 
-/**
- * Displays the calculation result on the screen and triggers a brief highlight animation.
- * @param {string|number} value - The computed numerical value or a comparison sentence
- * @param {string} unitSymbol - The resulting unit symbol (or empty string for comparisons)
- */
+// Displays the calculation result on the screen and triggers a brief highlight animation.
 export function showResult(value, unitSymbol) {
     const resValue = document.querySelector("#result-value");
     const resUnit = document.querySelector("#result-unit");
@@ -79,10 +66,7 @@ export function showResult(value, unitSymbol) {
     }
 }
 
-/**
- * Shows or hides the arithmetic operator buttons row.
- * @param {boolean} show - True to display the row, false to hide it
- */
+// Shows or hides the arithmetic operator buttons row.
 export function toggleOperators(show) {
     const opRow = document.querySelector("#operator-selector");
     if (!opRow) {
@@ -90,13 +74,17 @@ export function toggleOperators(show) {
         return;
     }
     
-    opRow.style.display = show ? "flex" : "none";
+    // FIXED: Properly manage Bootstrap classes to prevent !important overrides
+    if (show) {
+        opRow.classList.remove("d-none");
+        opRow.classList.add("d-flex");
+    } else {
+        opRow.classList.remove("d-flex");
+        opRow.classList.add("d-none");
+    }
 }
 
-/**
- * Renders the history records array into the history list DOM element.
- * @param {Array} records - Array of calculation history objects
- */
+// Renders the history records array into the history list DOM element.
 export function renderHistory(records) {
     const list = document.querySelector("#history-list");
     if (!list) {

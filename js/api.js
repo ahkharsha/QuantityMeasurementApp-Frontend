@@ -5,14 +5,10 @@
  * @version 1.0
  */
 
-export const BASE_URL = "http://localhost:3000";
+// export const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "https://quantitymeasurementapp.onrender.com";
 
-/**
- * Fetches measurement units for a given conceptual type.
- * @param {string} type - The measurement category (e.g., "Length", "Weight")
- * @returns {Promise<Array>} Array of unit objects
- * @throws {Error} If the HTTP request fails
- */
+// Fetches measurement units for a given conceptual type.
 export async function getUnits(type) {
     const res = await fetch(`${BASE_URL}/units?type=${type}`);
     
@@ -23,13 +19,7 @@ export async function getUnits(type) {
     return await res.json();
 }
 
-/**
- * Fetches the conversion factor or formula between two units.
- * @param {string} from - The symbol of the source unit (e.g., "m")
- * @param {string} to - The symbol of the target unit (e.g., "cm")
- * @returns {Promise<Object>} The conversion object containing factor or formula
- * @throws {Error} If no conversion exists or the request fails
- */
+// Fetches the conversion factor or formula between two units.
 export async function getConversion(from, to) {
     const res = await fetch(`${BASE_URL}/conversions?from=${from}&to=${to}`);
     
@@ -45,11 +35,7 @@ export async function getConversion(from, to) {
     return data[0];
 }
 
-/**
- * Saves a calculation record to the history database.
- * @param {Object} record - The details of the calculation
- * @returns {Promise<Object|null>} The saved record with database ID, or null if failed
- */
+// Saves a calculation record to the history database.
 export async function saveHistory(record) {
     try {
         const res = await fetch(`${BASE_URL}/history`, {
@@ -72,19 +58,21 @@ export async function saveHistory(record) {
 }
 
 /**
- * Fetches all history records from the database, sorted newest-first.
- * Retrieves an empty array upon network failures to ensure the UI doesn't crash.
- * @returns {Promise<Array>} List of history objects or empty array over offline
+ * Fetches all history records from the database.
+ * Manually sorts them newest-first to ensure compatibility across all json-server versions.
  */
 export async function getHistory() {
     try {
-        const res = await fetch(`${BASE_URL}/history?_sort=timestamp&_order=desc`);
+        const res = await fetch(`${BASE_URL}/history`);
         
         if (!res.ok) {
             throw new Error(`HTTP ${res.status}`);
         }
         
-        return await res.json();
+        const data = await res.json();
+        
+        // Manually sort descending by timestamp so the newest is at the top
+        return data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
     } catch (error) {
         console.error("Failed to fetch history data:", error);
         return [];

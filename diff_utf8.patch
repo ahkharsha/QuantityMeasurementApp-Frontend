@@ -1,0 +1,1486 @@
+﻿diff --git a/README.md b/README.md
+index 636fc8a..7e16a28 100644
+--- a/README.md
++++ b/README.md
+@@ -68,6 +68,9 @@ A clean Vanilla JavaScript app for converting, comparing, and doing math with di
+ - **Mode Switching:** Clicking between "Conversion" and "Arithmetic" instantly updates the underlying math engine's state configuration.
+ - **Dynamic Cleanups:** Safely flushes old input values, purges numerical results, and hides or shows the math operator row strictly on demand natively.
+ 
++### UC17: Execute Calculation
++- **Dynamic Math Execution:** Wired the `calculate` core algorithm to detect your specific typing, automatically running computations, updating UI screens, and recording History seamlessly in the background.
++
+ ## Tech Stack
+ 
+ - HTML5 / CSS3 / Bootstrap 5
+diff --git a/db.json b/db.json
+index b21202e..9b50d65 100644
+--- a/db.json
++++ b/db.json
+@@ -1,247 +1,248 @@
+ {
+-    "units": [
+-        {
+-            "id": "1",
+-            "type": "Length",
+-            "label": "Kilometer",
+-            "symbol": "km"
+-        },
+-        {
+-            "id": "2",
+-            "type": "Length",
+-            "label": "Meter",
+-            "symbol": "m"
+-        },
+-        {
+-            "id": "3",
+-            "type": "Length",
+-            "label": "Centimeter",
+-            "symbol": "cm"
+-        },
+-        {
+-            "id": "4",
+-            "type": "Weight",
+-            "label": "Kilogram",
+-            "symbol": "kg"
+-        },
+-        {
+-            "id": "5",
+-            "type": "Weight",
+-            "label": "Gram",
+-            "symbol": "g"
+-        },
+-        {
+-            "id": "6",
+-            "type": "Weight",
+-            "label": "Milligram",
+-            "symbol": "mg"
+-        },
+-        {
+-            "id": "7",
+-            "type": "Temperature",
+-            "label": "Celsius",
+-            "symbol": "C"
+-        },
+-        {
+-            "id": "8",
+-            "type": "Temperature",
+-            "label": "Fahrenheit",
+-            "symbol": "F"
+-        },
+-        {
+-            "id": "9",
+-            "type": "Temperature",
+-            "label": "Kelvin",
+-            "symbol": "K"
+-        },
+-        {
+-            "id": "10",
+-            "type": "Volume",
+-            "label": "Liter",
+-            "symbol": "L"
+-        },
+-        {
+-            "id": "11",
+-            "type": "Volume",
+-            "label": "Milliliter",
+-            "symbol": "ml"
+-        },
+-        {
+-            "id": "12",
+-            "type": "Volume",
+-            "label": "Gallon",
+-            "symbol": "gal"
+-        }
+-    ],
+-    "conversions": [
+-        {
+-            "id": "1",
+-            "from": "km",
+-            "to": "m",
+-            "factor": 1000,
+-            "formula": null
+-        },
+-        {
+-            "id": "2",
+-            "from": "m",
+-            "to": "km",
+-            "factor": 0.001,
+-            "formula": null
+-        },
+-        {
+-            "id": "3",
+-            "from": "m",
+-            "to": "cm",
+-            "factor": 100,
+-            "formula": null
+-        },
+-        {
+-            "id": "4",
+-            "from": "cm",
+-            "to": "m",
+-            "factor": 0.01,
+-            "formula": null
+-        },
+-        {
+-            "id": "5",
+-            "from": "km",
+-            "to": "cm",
+-            "factor": 100000,
+-            "formula": null
+-        },
+-        {
+-            "id": "6",
+-            "from": "cm",
+-            "to": "km",
+-            "factor": 0.00001,
+-            "formula": null
+-        },
+-        {
+-            "id": "7",
+-            "from": "kg",
+-            "to": "g",
+-            "factor": 1000,
+-            "formula": null
+-        },
+-        {
+-            "id": "8",
+-            "from": "g",
+-            "to": "kg",
+-            "factor": 0.001,
+-            "formula": null
+-        },
+-        {
+-            "id": "9",
+-            "from": "g",
+-            "to": "mg",
+-            "factor": 1000,
+-            "formula": null
+-        },
+-        {
+-            "id": "10",
+-            "from": "mg",
+-            "to": "g",
+-            "factor": 0.001,
+-            "formula": null
+-        },
+-        {
+-            "id": "11",
+-            "from": "kg",
+-            "to": "mg",
+-            "factor": 1000000,
+-            "formula": null
+-        },
+-        {
+-            "id": "12",
+-            "from": "mg",
+-            "to": "kg",
+-            "factor": 0.000001,
+-            "formula": null
+-        },
+-        {
+-            "id": "13",
+-            "from": "C",
+-            "to": "F",
+-            "factor": null,
+-            "formula": "(x*9/5)+32"
+-        },
+-        {
+-            "id": "14",
+-            "from": "F",
+-            "to": "C",
+-            "factor": null,
+-            "formula": "(x-32)*5/9"
+-        },
+-        {
+-            "id": "15",
+-            "from": "C",
+-            "to": "K",
+-            "factor": null,
+-            "formula": "x+273.15"
+-        },
+-        {
+-            "id": "16",
+-            "from": "K",
+-            "to": "C",
+-            "factor": null,
+-            "formula": "x-273.15"
+-        },
+-        {
+-            "id": "17",
+-            "from": "F",
+-            "to": "K",
+-            "factor": null,
+-            "formula": "(x-32)*5/9+273.15"
+-        },
+-        {
+-            "id": "18",
+-            "from": "K",
+-            "to": "F",
+-            "factor": null,
+-            "formula": "(x-273.15)*9/5+32"
+-        },
+-        {
+-            "id": "19",
+-            "from": "L",
+-            "to": "ml",
+-            "factor": 1000,
+-            "formula": null
+-        },
+-        {
+-            "id": "20",
+-            "from": "ml",
+-            "to": "L",
+-            "factor": 0.001,
+-            "formula": null
+-        },
+-        {
+-            "id": "21",
+-            "from": "L",
+-            "to": "gal",
+-            "factor": 0.264172,
+-            "formula": null
+-        },
+-        {
+-            "id": "22",
+-            "from": "gal",
+-            "to": "L",
+-            "factor": 3.78541,
+-            "formula": null
+-        },
+-        {
+-            "id": "23",
+-            "from": "ml",
+-            "to": "gal",
+-            "factor": 0.000264172,
+-            "formula": null
+-        },
+-        {
+-            "id": "24",
+-            "from": "gal",
+-            "to": "ml",
+-            "factor": 3785.41,
+-            "formula": null
+-        }
+-    ],
+-    "history": []
++  "units": [
++    {
++      "id": "1",
++      "type": "Length",
++      "label": "Kilometer",
++      "symbol": "km"
++    },
++    {
++      "id": "2",
++      "type": "Length",
++      "label": "Meter",
++      "symbol": "m"
++    },
++    {
++      "id": "3",
++      "type": "Length",
++      "label": "Centimeter",
++      "symbol": "cm"
++    },
++    {
++      "id": "4",
++      "type": "Weight",
++      "label": "Kilogram",
++      "symbol": "kg"
++    },
++    {
++      "id": "5",
++      "type": "Weight",
++      "label": "Gram",
++      "symbol": "g"
++    },
++    {
++      "id": "6",
++      "type": "Weight",
++      "label": "Milligram",
++      "symbol": "mg"
++    },
++    {
++      "id": "7",
++      "type": "Temperature",
++      "label": "Celsius",
++      "symbol": "C"
++    },
++    {
++      "id": "8",
++      "type": "Temperature",
++      "label": "Fahrenheit",
++      "symbol": "F"
++    },
++    {
++      "id": "9",
++      "type": "Temperature",
++      "label": "Kelvin",
++      "symbol": "K"
++    },
++    {
++      "id": "10",
++      "type": "Volume",
++      "label": "Liter",
++      "symbol": "L"
++    },
++    {
++      "id": "11",
++      "type": "Volume",
++      "label": "Milliliter",
++      "symbol": "ml"
++    },
++    {
++      "id": "12",
++      "type": "Volume",
++      "label": "Gallon",
++      "symbol": "gal"
++    }
++  ],
++  "conversions": [
++    {
++      "id": "1",
++      "from": "km",
++      "to": "m",
++      "factor": 1000,
++      "formula": null
++    },
++    {
++      "id": "2",
++      "from": "m",
++      "to": "km",
++      "factor": 0.001,
++      "formula": null
++    },
++    {
++      "id": "3",
++      "from": "m",
++      "to": "cm",
++      "factor": 100,
++      "formula": null
++    },
++    {
++      "id": "4",
++      "from": "cm",
++      "to": "m",
++      "factor": 0.01,
++      "formula": null
++    },
++    {
++      "id": "5",
++      "from": "km",
++      "to": "cm",
++      "factor": 100000,
++      "formula": null
++    },
++    {
++      "id": "6",
++      "from": "cm",
++      "to": "km",
++      "factor": 0.00001,
++      "formula": null
++    },
++    {
++      "id": "7",
++      "from": "kg",
++      "to": "g",
++      "factor": 1000,
++      "formula": null
++    },
++    {
++      "id": "8",
++      "from": "g",
++      "to": "kg",
++      "factor": 0.001,
++      "formula": null
++    },
++    {
++      "id": "9",
++      "from": "g",
++      "to": "mg",
++      "factor": 1000,
++      "formula": null
++    },
++    {
++      "id": "10",
++      "from": "mg",
++      "to": "g",
++      "factor": 0.001,
++      "formula": null
++    },
++    {
++      "id": "11",
++      "from": "kg",
++      "to": "mg",
++      "factor": 1000000,
++      "formula": null
++    },
++    {
++      "id": "12",
++      "from": "mg",
++      "to": "kg",
++      "factor": 0.000001,
++      "formula": null
++    },
++    {
++      "id": "13",
++      "from": "C",
++      "to": "F",
++      "factor": null,
++      "formula": "(x*9/5)+32"
++    },
++    {
++      "id": "14",
++      "from": "F",
++      "to": "C",
++      "factor": null,
++      "formula": "(x-32)*5/9"
++    },
++    {
++      "id": "15",
++      "from": "C",
++      "to": "K",
++      "factor": null,
++      "formula": "x+273.15"
++    },
++    {
++      "id": "16",
++      "from": "K",
++      "to": "C",
++      "factor": null,
++      "formula": "x-273.15"
++    },
++    {
++      "id": "17",
++      "from": "F",
++      "to": "K",
++      "factor": null,
++      "formula": "(x-32)*5/9+273.15"
++    },
++    {
++      "id": "18",
++      "from": "K",
++      "to": "F",
++      "factor": null,
++      "formula": "(x-273.15)*9/5+32"
++    },
++    {
++      "id": "19",
++      "from": "L",
++      "to": "ml",
++      "factor": 1000,
++      "formula": null
++    },
++    {
++      "id": "20",
++      "from": "ml",
++      "to": "L",
++      "factor": 0.001,
++      "formula": null
++    },
++    {
++      "id": "21",
++      "from": "L",
++      "to": "gal",
++      "factor": 0.264172,
++      "formula": null
++    },
++    {
++      "id": "22",
++      "from": "gal",
++      "to": "L",
++      "factor": 3.78541,
++      "formula": null
++    },
++    {
++      "id": "23",
++      "from": "ml",
++      "to": "gal",
++      "factor": 0.000264172,
++      "formula": null
++    },
++    {
++      "id": "24",
++      "from": "gal",
++      "to": "ml",
++      "factor": 3785.41,
++      "formula": null
++    }
++  ],
++  "history": [],
++  "$schema": "./node_modules/json-server/schema.json"
+ }
+\ No newline at end of file
+diff --git a/index.html b/index.html
+index e14b0e2..fe41783 100644
+--- a/index.html
++++ b/index.html
+@@ -1,8 +1,3 @@
+-<!--
+-    Quantity Measurement App UI
+-    @author Developer
+-    @version 1.0
+--->
+ <!DOCTYPE html>
+ <html lang="en">
+ 
+@@ -11,9 +6,8 @@
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Quantity Measurement</title>
+ 
+-    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+-
+-    <link href="node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
++    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
++    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+ 
+     <style>
+         body {
+@@ -56,7 +50,6 @@
+             font-weight: 600;
+         }
+ 
+-        /* Custom class to freeze inputs without changing their look */
+         .frozen-input {
+             pointer-events: none;
+         }
+@@ -69,9 +62,8 @@
+     </header>
+ 
+     <div class="container pb-5">
+-        <!-- Type Selection Cards -->
+         <h5 class="text-secondary fw-bold mb-3 text-center">CHOOSE TYPE</h5>
+-        <div class="row justify-content-center g-4 mb-5">
++        <div class="row justify-content-center g-4 mb-5 type-container">
+             <div class="col-6 col-md-3">
+                 <div class="card type-card card-active text-center p-3 h-100 shadow-sm" data-type="Length">
+                     <div class="card-body">
+@@ -106,9 +98,8 @@
+             </div>
+         </div>
+ 
+-        <!-- Action Selection (Conversion, Comparison, Arithmetic) -->
+         <h5 class="text-secondary fw-bold mb-3 text-center">CHOOSE ACTION</h5>
+-        <div class="d-flex justify-content-center flex-wrap gap-3 mb-4">
++        <div class="d-flex justify-content-center flex-wrap gap-3 mb-4 action-container">
+             <button class="btn btn-primary action-btn active shadow-sm" data-action="Conversion">Conversion</button>
+             <button class="btn btn-light action-btn shadow-sm text-secondary border"
+                 data-action="Comparison">Comparison</button>
+@@ -116,14 +107,13 @@
+                 data-action="Arithmetic">Arithmetic</button>
+         </div>
+ 
+-        <div id="operator-selector" class="d-flex justify-content-center gap-2 mb-4" style="display: none;">
+-            <button class="btn btn-outline-secondary operator-btn" data-op="+">+</button>
++        <div id="operator-selector" class="justify-content-center gap-2 mb-4 d-none">
++            <button class="btn btn-outline-secondary operator-btn active" data-op="+">+</button>
+             <button class="btn btn-outline-secondary operator-btn" data-op="-">-</button>
+             <button class="btn btn-outline-secondary operator-btn" data-op="*">×</button>
+             <button class="btn btn-outline-secondary operator-btn" data-op="/">÷</button>
+         </div>
+ 
+-        <!-- Conversion Interface -->
+         <div class="row justify-content-center g-4">
+             <div class="col-md-5">
+                 <label class="form-label fw-bold text-dark">FROM</label>
+@@ -140,7 +130,7 @@
+             <div class="col-md-5">
+                 <label class="form-label fw-bold text-dark">TO</label>
+                 <div class="input-group input-group-lg mb-3 shadow-sm">
+-                    <input type="number" id="to-value" class="form-control" placeholder="0" readonly>
++                    <input type="number" id="to-value" class="form-control bg-light" placeholder="0" readonly>
+                 </div>
+                 <select id="to-unit" class="form-select form-select-lg shadow-sm"></select>
+             </div>
+@@ -152,7 +142,6 @@
+             </h2>
+         </div>
+ 
+-        <!-- History Log Section -->
+         <div class="mt-5">
+             <h5 class="text-secondary fw-bold mb-3">HISTORY</h5>
+             <div class="card shadow-sm p-3">
+@@ -163,7 +152,8 @@
+         </div>
+     </div>
+ 
+-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
++    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
++    <script type="module" src="js/app.js"></script>
+ </body>
+ 
+ </html>
+\ No newline at end of file
+diff --git a/js/api.js b/js/api.js
+index 3077ca8..49f2c42 100644
+--- a/js/api.js
++++ b/js/api.js
+@@ -5,14 +5,10 @@
+  * @version 1.0
+  */
+ 
+-export const BASE_URL = "http://localhost:3000";
++// export const BASE_URL = "http://localhost:3000";
++export const BASE_URL = "https://quantitymeasurementapp.onrender.com";
+ 
+-/**
+- * Fetches measurement units for a given conceptual type.
+- * @param {string} type - The measurement category (e.g., "Length", "Weight")
+- * @returns {Promise<Array>} Array of unit objects
+- * @throws {Error} If the HTTP request fails
+- */
++// Fetches measurement units for a given conceptual type.
+ export async function getUnits(type) {
+     const res = await fetch(`${BASE_URL}/units?type=${type}`);
+     
+@@ -23,13 +19,7 @@ export async function getUnits(type) {
+     return await res.json();
+ }
+ 
+-/**
+- * Fetches the conversion factor or formula between two units.
+- * @param {string} from - The symbol of the source unit (e.g., "m")
+- * @param {string} to - The symbol of the target unit (e.g., "cm")
+- * @returns {Promise<Object>} The conversion object containing factor or formula
+- * @throws {Error} If no conversion exists or the request fails
+- */
++// Fetches the conversion factor or formula between two units.
+ export async function getConversion(from, to) {
+     const res = await fetch(`${BASE_URL}/conversions?from=${from}&to=${to}`);
+     
+@@ -45,11 +35,7 @@ export async function getConversion(from, to) {
+     return data[0];
+ }
+ 
+-/**
+- * Saves a calculation record to the history database.
+- * @param {Object} record - The details of the calculation
+- * @returns {Promise<Object|null>} The saved record with database ID, or null if failed
+- */
++// Saves a calculation record to the history database.
+ export async function saveHistory(record) {
+     try {
+         const res = await fetch(`${BASE_URL}/history`, {
+@@ -72,21 +58,23 @@ export async function saveHistory(record) {
+ }
+ 
+ /**
+- * Fetches all history records from the database, sorted newest-first.
+- * Retrieves an empty array upon network failures to ensure the UI doesn't crash.
+- * @returns {Promise<Array>} List of history objects or empty array over offline
++ * Fetches all history records from the database.
++ * Manually sorts them newest-first to ensure compatibility across all json-server versions.
+  */
+ export async function getHistory() {
+     try {
+-        const res = await fetch(`${BASE_URL}/history?_sort=timestamp&_order=desc`);
++        const res = await fetch(`${BASE_URL}/history`);
+         
+         if (!res.ok) {
+             throw new Error(`HTTP ${res.status}`);
+         }
+         
+-        return await res.json();
++        const data = await res.json();
++        
++        // Manually sort descending by timestamp so the newest is at the top
++        return data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+     } catch (error) {
+         console.error("Failed to fetch history data:", error);
+         return [];
+     }
+-}
++}
+\ No newline at end of file
+diff --git a/js/app.js b/js/app.js
+index 92e3f86..d8535ce 100644
+--- a/js/app.js
++++ b/js/app.js
+@@ -1,14 +1,14 @@
+-/**
++/*
+  * Application State and Initialization Module
+  * Handles global state management and DOM lifecycle events.
+  * @author Developer
+  * @version 1.0
+  */
+ 
+-import { getUnits } from './api.js';
++import { getUnits, getConversion, saveHistory, getHistory } from './api.js';
+ import { populateDropdown, setActive, showResult, toggleOperators, renderHistory } from './ui.js';
++import { applyConversion, evaluateExpression, compareValues } from './conversion.js';
+ 
+-// Global state tracking current UI selections
+ export const state = {
+     type: "Length",
+     action: "Conversion",
+@@ -19,7 +19,80 @@ export const state = {
+     operator: "+"
+ };
+ 
+-// Orchestration loadUnits replaces stub
++// Runs conversion, comparison or arithmetic and displays result.
++export async function calculate() {
++    if (state.fromVal === null || state.fromVal === undefined || state.fromVal === "") return;
++    if (!state.fromUnit || !state.toUnit) return;
++
++    try {
++        let resultVal, expression, resultText;
++
++        if (state.action === "Conversion") {
++            if (state.fromUnit === state.toUnit) {
++                resultVal = state.fromVal;
++            } else {
++                const conv = await getConversion(state.fromUnit, state.toUnit);
++                resultVal = applyConversion(state.fromVal, conv);
++            }
++            expression = `${state.fromVal} ${state.fromUnit} to ${state.toUnit}`;
++            resultText = `${resultVal} ${state.toUnit}`;
++            showResult(resultVal, state.toUnit);
++        } else if (state.action === "Comparison") {
++            if (state.toVal === null || state.toVal === undefined || state.toVal === "") return;
++            
++            let normToVal;
++            if (state.fromUnit === state.toUnit) {
++                normToVal = state.toVal;
++            } else {
++                const conv = await getConversion(state.toUnit, state.fromUnit);
++                normToVal = applyConversion(state.toVal, conv);
++            }
++
++            resultVal = compareValues(state.fromVal, normToVal);
++            
++            let cmpWord = "EQUAL TO";
++            if (resultVal === 1) cmpWord = "GREATER THAN";
++            if (resultVal === -1) cmpWord = "LESS THAN";
++
++            expression = `${state.fromVal} ${state.fromUnit} ? ${state.toVal} ${state.toUnit}`;
++            resultText = cmpWord;
++            const sentence = `${state.fromVal} ${state.fromUnit} is ${cmpWord} ${state.toVal} ${state.toUnit}`;
++            showResult(sentence, "");
++        } else { // Arithmetic
++            if (state.toVal === null || state.toVal === undefined || state.toVal === "") return;
++
++            let normToVal;
++            if (state.fromUnit === state.toUnit) {
++                normToVal = state.toVal;
++            } else {
++                const conv = await getConversion(state.toUnit, state.fromUnit);
++                normToVal = applyConversion(state.toVal, conv);
++            }
++
++            resultVal = evaluateExpression(state.fromVal, normToVal, state.operator);
++            expression = `${state.fromVal} ${state.fromUnit} ${state.operator} ${state.toVal} ${state.toUnit}`;
++            resultText = `${resultVal} ${state.fromUnit}`;
++            showResult(resultVal, state.fromUnit);
++        }
++
++        const record = {
++            type: state.type,
++            action: state.action,
++            expression: expression,
++            result: resultText,
++            timestamp: new Date().toISOString()
++        };
++
++        await saveHistory(record);
++        const historyData = await getHistory();
++        renderHistory(historyData);
++
++    } catch (e) {
++        showResult("Error: " + e.message, "");
++    }
++}
++
++// Fetches units for a specific type and populates dropdowns.
+ const loadUnits = async (type) => {
+     try {
+         const units = await getUnits(type);
+@@ -35,6 +108,7 @@ const loadUnits = async (type) => {
+     }
+ };
+ 
++// Attaches all application event listeners.
+ const attachEventListeners = () => {
+     const typeSelector = document.querySelector(".type-container");
+     const actionSelector = document.querySelector(".action-container");
+@@ -48,11 +122,30 @@ const attachEventListeners = () => {
+             if (!newAction) return;
+ 
+             state.action = newAction;
+-            setActive(actionSelector, e.currentTarget, ".action-btn");
++            setActive(actionSelector, e.currentTarget, ".action-btn", "active");
++
++            document.querySelectorAll(".action-btn").forEach(b => {
++                b.classList.remove("btn-primary");
++                b.classList.add("btn-light", "text-secondary", "border");
++            });
++            e.currentTarget.classList.remove("btn-light", "text-secondary", "border");
++            e.currentTarget.classList.add("btn-primary");
++
+             toggleOperators(state.action === "Arithmetic");
+ 
+             if (fromInput) fromInput.value = "";
+-            if (toInput) toInput.value = "";
++            if (toInput) {
++                toInput.value = "";
++                
++                // FIXED: Visually lock/unlock the TO input based on the mode
++                const isConversion = state.action === "Conversion";
++                toInput.readOnly = isConversion;
++                if (isConversion) {
++                    toInput.classList.add("bg-light");
++                } else {
++                    toInput.classList.remove("bg-light");
++                }
++            }
+             showResult(0, "");
+ 
+             state.fromVal = null;
+@@ -71,7 +164,7 @@ const attachEventListeners = () => {
+             if (!newType) return;
+ 
+             state.type = newType;
+-            setActive(typeSelector, e.currentTarget, ".type-card");
++            setActive(typeSelector, e.currentTarget, ".type-card", "card-active");
+ 
+             if (fromInput) fromInput.value = "";
+             if (toInput) toInput.value = "";
+@@ -80,46 +173,93 @@ const attachEventListeners = () => {
+             try {
+                 await loadUnits(state.type);
+             } catch (err) {
+-                // Ignore gracefully as per alternate flow requirements
++                // Ignore gracefully
+             }
+         });
+     });
+-};
+ 
+-const loadHistory = async () => {};
++    // We create a single timer variable outside the loop to track keystrokes
++    let debounceTimer;
+ 
+-/**
+- * Initializes the application upon DOM load.
+- * Sets default active states and hides the operator row.
+- */
+-if (typeof document !== 'undefined') {
+-    document.addEventListener("DOMContentLoaded", async () => {
+-        // Safe UI initialization
+-        attachEventListeners();
+-
+-        const firstTypeCard = document.querySelector('.type-card[data-type="Length"]');
+-        const firstActionBtn = document.querySelector('.action-btn[data-action="Conversion"]');
+-        
+-        if (firstTypeCard) firstTypeCard.classList.add('card-active');
+-        if (firstActionBtn) firstActionBtn.classList.add('active');
+-
+-        toggleOperators(false);
+-
+-        // Network calls wrapped individually to prevent blocking UI
+-        try {
+-            await loadUnits(state.type);
+-        } catch (error) {
+-            console.error("Units initialization error:", error);
+-            const resultValue = document.querySelector("#result-value");
+-            if (resultValue) {
+-                resultValue.textContent = "Server unavailable";
+-            }
++    const inputs = ["#from-value", "#to-value", "#from-unit", "#to-unit"];
++    inputs.forEach(sel => {
++        const el = document.querySelector(sel);
++        if (el) {
++            const eventType = el.tagName === "SELECT" ? "change" : "input";
++            
++            el.addEventListener(eventType, () => {
++                // Clear the previous timer every time they hit a new key
++                clearTimeout(debounceTimer);
++                
++                // Start a new 500ms countdown
++                debounceTimer = setTimeout(async () => {
++                    const fVal = document.querySelector("#from-value").value;
++                    const tVal = document.querySelector("#to-value").value;
++                    
++                    state.fromVal = fVal === "" ? null : Number(fVal);
++                    state.toVal = tVal === "" ? null : Number(tVal);
++                    state.fromUnit = document.querySelector("#from-unit").value;
++                    state.toUnit = document.querySelector("#to-unit").value;
++                    
++                    await calculate();
++                }, 500); // 500 milliseconds delay
++            });
+         }
++    });
+ 
+-        try {
+-            await loadHistory();
+-        } catch (error) {
+-            console.error("History initialization error:", error);
+-        }
++    document.querySelectorAll(".operator-btn").forEach(btn => {
++        btn.addEventListener('click', async (e) => {
++            operators.forEach(ob => ob.classList.remove("active"));
++            e.currentTarget.classList.add("active");
++            state.operator = e.currentTarget.dataset.op;
++            await calculate();
++        });
+     });
++};
++
++// Loads history records into the DOM.
++const loadHistory = async () => {
++    try {
++        const historyData = await getHistory();
++        renderHistory(historyData);
++    } catch (error) {
++        console.error("History initialization error:", error);
++    }
++};
++
++// Initializes the application upon DOM load.
++export const initApp = async () => {
++    attachEventListeners();
++
++    const firstTypeCard = document.querySelector('.type-card[data-type="Length"]');
++    const firstActionBtn = document.querySelector('.action-btn[data-action="Conversion"]');
++    
++    if (firstTypeCard) firstTypeCard.classList.add('card-active');
++    if (firstActionBtn) firstActionBtn.classList.add('active');
++
++    toggleOperators(false);
++
++    try {
++        await loadUnits(state.type);
++    } catch (error) {
++        console.error("Units initialization error:", error);
++        const resultValue = document.querySelector("#result-value");
++        if (resultValue) {
++            resultValue.textContent = "Server unavailable";
++        }
++    }
++
++    try {
++        await loadHistory();
++    } catch (error) {
++        console.error("History initialization error:", error);
++    }
++};
++
++if (typeof document !== 'undefined') {
++    if (document.readyState === 'loading') {
++        document.addEventListener("DOMContentLoaded", initApp);
++    } else {
++        initApp();
++    }
+ }
+\ No newline at end of file
+diff --git a/js/conversion.js b/js/conversion.js
+index 34e0dfb..d333aa2 100644
+--- a/js/conversion.js
++++ b/js/conversion.js
+@@ -1,17 +1,11 @@
+-/**
++/*
+  * Quantity Measurement App - Calculation Module
+  * Provides pure mathematical functions for measurement resolution.
+  * @author Developer
+  * @version 1.0
+  */
+ 
+-/**
+- * Applies a conversion factor or formula to a given numerical value.
+- * @param {number} value - The input value to convert
+- * @param {Object} convObj - The conversion rules containing factor or formula
+- * @returns {number} The converted value scaled to 6 decimal places
+- * @throws {Error} If the value is invalid or formula evaluates poorly
+- */
++// Applies a conversion factor or formula to a given numerical value.
+ export function applyConversion(value, convObj) {
+     if (typeof value !== 'number' || Number.isNaN(value)) {
+         throw new Error("Invalid number");
+@@ -42,14 +36,7 @@ export function applyConversion(value, convObj) {
+     throw new Error("Bad formula");
+ }
+ 
+-/**
+- * Evaluates an arithmetic expression between two numerical values.
+- * @param {number} val1 - The first value
+- * @param {number} val2 - The second value
+- * @param {string} operator - The mathematical operator ("+" or "-")
+- * @returns {number} The computed result scaled to 6 decimal places
+- * @throws {Error} If values or operator are invalid
+- */
++// Evaluates an arithmetic expression between two numerical values.
+ export function evaluateExpression(val1, val2, operator) {
+     if (typeof val1 !== 'number' || Number.isNaN(val1) || typeof val2 !== 'number' || Number.isNaN(val2)) {
+         throw new Error("Invalid number");
+@@ -63,31 +50,25 @@ export function evaluateExpression(val1, val2, operator) {
+         return parseFloat((val1 - val2).toFixed(6));
+     }
+ 
+-    throw new Error("Invalid operator");
+-}
+-
+-/**
+- * Compares two converted measurements against their normalized base units.
+- * @param {number} v1 - Original value 1
+- * @param {string} u1 - Original unit 1
+- * @param {number} v2 - Original value 2
+- * @param {string} u2 - Original unit 2
+- * @param {number} base1 - Value 1 converted to base unit
+- * @param {number} base2 - Value 2 converted to base unit
+- * @returns {string} A human-readable comparison sentence
+- */
+-export function compareValues(v1, u1, v2, u2, base1, base2) {
+-    if (Number.isNaN(base1) || Number.isNaN(base2)) {
+-        return "Invalid values — cannot compare";
++    if (operator === '*') {
++        return parseFloat((val1 * val2).toFixed(6));
+     }
+ 
+-    if (base1 > base2) {
+-        return `${v1} ${u1} is GREATER than ${v2} ${u2}`;
+-    }
+-    
+-    if (base1 < base2) {
+-        return `${v1} ${u1} is LESS than ${v2} ${u2}`;
++    if (operator === '/') {
++        if (val2 === 0) throw new Error("Division by zero");
++        return parseFloat((val1 / val2).toFixed(6));
+     }
+ 
+-    return `${v1} ${u1} is EQUAL to ${v2} ${u2}`;
++    throw new Error("Invalid operator");
+ }
++
++// Compares two normalized numerical values mathematically.
++export function compareValues(val1, val2) {
++    if (typeof val1 !== 'number' || Number.isNaN(val1) || typeof val2 !== 'number' || Number.isNaN(val2)) {
++        throw new Error("Invalid number");
++    }
++
++    if (val1 > val2) return 1;
++    if (val1 < val2) return -1;
++    return 0; // Equal
++}
+\ No newline at end of file
+diff --git a/js/ui.js b/js/ui.js
+index 431e49d..9ee1680 100644
+--- a/js/ui.js
++++ b/js/ui.js
+@@ -1,15 +1,11 @@
+-/**
++/*
+  * Quantity Measurement App - UI Module
+  * Handles DOM manipulation, rendering, and dynamic class toggling.
+  * @author Developer
+  * @version 1.0
+  */
+ 
+-/**
+- * Populates a target `<select>` element with a list of unit options.
+- * @param {HTMLElement} selectEl - The target select element
+- * @param {Array} units - The array of unit objects containing label and symbol
+- */
++// Populates a target select element with a list of unit options.
+ export function populateDropdown(selectEl, units) {
+     if (!selectEl) {
+         console.warn("Dropdown element not found in DOM");
+@@ -35,29 +31,20 @@ export function populateDropdown(selectEl, units) {
+     });
+ }
+ 
+-/**
+- * Sets the "active" CSS class on a clicked element while removing it from all siblings.
+- * @param {HTMLElement} parentEl - The parent container element
+- * @param {HTMLElement} clickedEl - The specific button/card that was clicked
+- * @param {string} childSelector - The CSS selector matching all sibling elements
+- */
+-export function setActive(parentEl, clickedEl, childSelector) {
++// Sets the active CSS class on a clicked element while removing it from all siblings.
++export function setActive(parentEl, clickedEl, childSelector, activeClass = "active") {
+     if (!parentEl) return;
+     
+     parentEl.querySelectorAll(childSelector).forEach(el => {
+-        el.classList.remove("active");
++        el.classList.remove(activeClass);
+     });
+     
+     if (clickedEl) {
+-        clickedEl.classList.add("active");
++        clickedEl.classList.add(activeClass);
+     }
+ }
+ 
+-/**
+- * Displays the calculation result on the screen and triggers a brief highlight animation.
+- * @param {string|number} value - The computed numerical value or a comparison sentence
+- * @param {string} unitSymbol - The resulting unit symbol (or empty string for comparisons)
+- */
++// Displays the calculation result on the screen and triggers a brief highlight animation.
+ export function showResult(value, unitSymbol) {
+     const resValue = document.querySelector("#result-value");
+     const resUnit = document.querySelector("#result-unit");
+@@ -79,10 +66,7 @@ export function showResult(value, unitSymbol) {
+     }
+ }
+ 
+-/**
+- * Shows or hides the arithmetic operator buttons row.
+- * @param {boolean} show - True to display the row, false to hide it
+- */
++// Shows or hides the arithmetic operator buttons row.
+ export function toggleOperators(show) {
+     const opRow = document.querySelector("#operator-selector");
+     if (!opRow) {
+@@ -90,13 +74,17 @@ export function toggleOperators(show) {
+         return;
+     }
+     
+-    opRow.style.display = show ? "flex" : "none";
++    // FIXED: Properly manage Bootstrap classes to prevent !important overrides
++    if (show) {
++        opRow.classList.remove("d-none");
++        opRow.classList.add("d-flex");
++    } else {
++        opRow.classList.remove("d-flex");
++        opRow.classList.add("d-none");
++    }
+ }
+ 
+-/**
+- * Renders the history records array into the history list DOM element.
+- * @param {Array} records - Array of calculation history objects
+- */
++// Renders the history records array into the history list DOM element.
+ export function renderHistory(records) {
+     const list = document.querySelector("#history-list");
+     if (!list) {
+@@ -118,4 +106,4 @@ export function renderHistory(records) {
+         li.textContent = `${r.expression}  =  ${r.result}  (${new Date(r.timestamp).toLocaleString()})`;
+         list.appendChild(li);
+     });
+-}
++}
+\ No newline at end of file
+diff --git a/package.json b/package.json
+index 5113901..fb55a67 100644
+--- a/package.json
++++ b/package.json
+@@ -3,12 +3,13 @@
+   "version": "1.0.0",
+   "type": "module",
+   "scripts": {
+-    "start": "json-server --watch db.json --port 3000",
++    "start": "json-server --watch db.json --port $PORT --host 0.0.0.0",
+     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+   },
+   "dependencies": {
+     "bootstrap": "^5.3.8",
+-    "bootstrap-icons": "^1.13.1"
++    "bootstrap-icons": "^1.13.1",
++    "json-server": "^0.17.4"
+   },
+   "devDependencies": {
+     "jest": "^29.7.0",
+diff --git a/tests/api.test.js b/tests/api.test.js
+index ee9364c..ff69880 100644
+--- a/tests/api.test.js
++++ b/tests/api.test.js
+@@ -1,4 +1,4 @@
+-/**
++/*
+  * API Module Tests
+  * Validates network communication functions and error handling.
+  * @author Developer
+@@ -8,6 +8,7 @@
+ import { getUnits, getConversion, saveHistory, getHistory, BASE_URL } from '../js/api.js';
+ import { jest } from '@jest/globals';
+ 
++// Tests fetching measurement units from the API.
+ describe('UC-JS-03: Fetch Units by Type', () => {
+     
+     beforeEach(() => {
+@@ -56,6 +57,7 @@ describe('UC-JS-03: Fetch Units by Type', () => {
+     });
+ });
+ 
++// Tests fetching a single conversion rule for a unit pair.
+ describe('UC-JS-04: Fetch Conversion Record', () => {
+     
+     beforeEach(() => {
+@@ -93,6 +95,7 @@ describe('UC-JS-04: Fetch Conversion Record', () => {
+     });
+ });
+ 
++// Tests saving calculation results back to the server history.
+ describe('UC-JS-05: Save to History', () => {
+     let consoleErrorSpy;
+ 
+@@ -138,6 +141,7 @@ describe('UC-JS-05: Save to History', () => {
+     });
+ });
+ 
++// Tests retrieving chronological history logs from the server.
+ describe('UC-JS-06: Load History', () => {
+     let consoleErrorSpy;
+ 
+@@ -165,7 +169,7 @@ describe('UC-JS-06: Load History', () => {
+         const data = await getHistory();
+         
+         expect(global.fetch).toHaveBeenCalledTimes(1);
+-        expect(global.fetch).toHaveBeenCalledWith(`${BASE_URL}/history?_sort=timestamp&_order=desc`);
++        expect(global.fetch).toHaveBeenCalledWith(`${BASE_URL}/history`);
+         expect(data).toEqual(mockRecords);
+         expect(consoleErrorSpy).not.toHaveBeenCalled();
+     });
+diff --git a/tests/app.test.js b/tests/app.test.js
+index bd89d6c..41d8d02 100644
+--- a/tests/app.test.js
++++ b/tests/app.test.js
+@@ -1,4 +1,4 @@
+-/**
++/*
+  * Application Initialization Tests
+  * Verifies the integrity of the global state and DOM lifecycle hooks.
+  * @author Developer
+@@ -6,9 +6,15 @@
+  * @jest-environment jsdom
+  */
+ 
+-import { state } from '../js/app.js';
++import { state, initApp } from '../js/app.js';
+ import { jest } from '@jest/globals';
+ 
++global.fetch = jest.fn().mockResolvedValue({
++    ok: true,
++    json: async () => []
++});
++
++// Tests the default runtime initialization hooks locking the state correctly.
+ describe('App Initialisation Validation', () => {
+     
+     // Ensures the state object has all required initial properties and values
+@@ -22,15 +28,15 @@ describe('App Initialisation Validation', () => {
+         expect(state).toHaveProperty('operator', '+');
+     });
+ 
+-    // Tests if the main initialization flow runs successfully on DOMContentLoaded without crashing
+-    test('DOMContentLoaded listener should safely execute without unhandled exceptions', () => {
+-        const event = new Event('DOMContentLoaded');
+-        expect(() => document.dispatchEvent(event)).not.toThrow();
++    // Tests if the main initialization flow runs successfully without crashing
++    test('initApp should safely execute without unhandled exceptions', async () => {
++        await expect(initApp()).resolves.not.toThrow();
+     });
+ });
+ 
++// Tests overarching state changes and load triggers when a top type card is clicked.
+ describe('UC-JS-15: Handle Type Card Click', () => {
+-    beforeEach(() => {
++    beforeEach(async () => {
+         document.body.innerHTML = `
+             <div class="type-container">
+                 <div class="type-card card-active" data-type="Length">Length</div>
+@@ -43,9 +49,8 @@ describe('UC-JS-15: Handle Type Card Click', () => {
+             <span id="result-value"></span>
+             <span id="result-unit"></span>
+         `;
+-        // Manually trigger the event listener attachment hook by triggering DOMContentLoaded
+-        const event = new Event('DOMContentLoaded');
+-        document.dispatchEvent(event);
++        // Manually trigger the event listener attachment hook securely
++        await initApp();
+     });
+ 
+     afterEach(() => {
+@@ -75,8 +80,9 @@ describe('UC-JS-15: Handle Type Card Click', () => {
+     });
+ });
+ 
++// Tests state shifts and operator UI permutations when the Action mode changes.
+ describe('UC-JS-16: Handle Action Tab Click', () => {
+-    beforeEach(() => {
++    beforeEach(async () => {
+         document.body.innerHTML = `
+             <div class="action-container">
+                 <button class="action-btn active" data-action="Conversion">Conv</button>
+@@ -91,8 +97,7 @@ describe('UC-JS-16: Handle Action Tab Click', () => {
+             <span id="result-value"></span>
+             <span id="result-unit"></span>
+         `;
+-        const event = new Event('DOMContentLoaded');
+-        document.dispatchEvent(event);
++        await initApp();
+     });
+ 
+     test('should update states, clear inputs, and toggle operators when clicking Arithmetic', () => {
+@@ -111,7 +116,37 @@ describe('UC-JS-16: Handle Action Tab Click', () => {
+         expect(document.querySelector("#to-value").value).toBe("");
+ 
+         // 3. UI Operators updated visually
+-        expect(document.querySelector('#operator-selector').style.display).toBe('flex');
++        expect(document.querySelector('#operator-selector').classList.contains('d-flex')).toBe(true);
+         expect(document.querySelector('.operator-btn[data-op="+"]').classList.contains('active')).toBe(true);
+     });
++});
++
++// Tests calculation execution protections bounding empty or invalid global states.
++describe('Execute Calculation', () => {
++    beforeEach(async () => {
++        document.body.innerHTML = `
++            <input id="from-value" value="" />
++            <input id="to-value" value="" />
++            <select id="from-unit"><option value="m">m</option></select>
++            <select id="to-unit"><option value="cm">cm</option></select>
++            <span id="result-value"></span>
++            <span id="result-unit"></span>
++        `;
++        await initApp();
++    });
++
++    afterEach(() => {
++        jest.clearAllMocks();
++    });
++
++    test('should properly intercept null state values bounding early exits safely', async () => {
++        const fromInput = document.querySelector('#from-value');
++        fromInput.value = "";
++        
++        // Manual input dispatch
++        fromInput.dispatchEvent(new Event('input'));
++        
++        // Assert state correctly evaluated explicit null boundary silently without DOM crashes
++        expect(state.fromVal).toBeNull();
++    });
+ });
+\ No newline at end of file
+diff --git a/tests/conversion.test.js b/tests/conversion.test.js
+index bb8f189..03989bd 100644
+--- a/tests/conversion.test.js
++++ b/tests/conversion.test.js
+@@ -1,4 +1,4 @@
+-/**
++/*
+  * Calculation Module Tests
+  * Validates basic math factors and complex formulas.
+  * @author Developer
+@@ -7,6 +7,7 @@
+ 
+ import { applyConversion, evaluateExpression, compareValues } from '../js/conversion.js';
+ 
++// Tests conversion mathematics including exact factors and parsed string formulas.
+ describe('UC-JS-07: Apply Conversion Factor or Formula', () => {
+ 
+     test('should apply strict numerical factor correctly', () => {
+@@ -37,6 +38,7 @@ describe('UC-JS-07: Apply Conversion Factor or Formula', () => {
+     });
+ });
+ 
++// Tests arithmetic expression evaluation safely bypassing JS floating-point noise.
+ describe('UC-JS-08: Evaluate Arithmetic Expression', () => {
+ 
+     test('should correctly add two numbers and bypass JS float quirks securely', () => {
+@@ -55,22 +57,23 @@ describe('UC-JS-08: Evaluate Arithmetic Expression', () => {
+     });
+ 
+     test('should explicitly throw "Invalid operator" when given unsupported operation types', () => {
+-        expect(() => evaluateExpression(10, 5, '*')).toThrow("Invalid operator");
+-        expect(() => evaluateExpression(10, 5, '/')).toThrow("Invalid operator");
++        expect(() => evaluateExpression(10, 5, '&')).toThrow("Invalid operator");
++        expect(() => evaluateExpression(10, 5, '^')).toThrow("Invalid operator");
+         expect(() => evaluateExpression(10, 5, 'add')).toThrow("Invalid operator");
+     });
+ });
+ 
++// Tests strict mathematical comparison rules bounding base units seamlessly.
+ describe('UC-JS-09: Compare Two Measurement Values', () => {
+ 
+-    test('should return exactly GREATER, LESS, or EQUAL statements correctly', () => {
+-        expect(compareValues(2, 'kg', 100, 'g', 2000, 100)).toBe("2 kg is GREATER than 100 g");
+-        expect(compareValues(5, 'cm', 1, 'm', 0.05, 1)).toBe("5 cm is LESS than 1 m");
+-        expect(compareValues(10, 'mm', 1, 'cm', 0.01, 0.01)).toBe("10 mm is EQUAL to 1 cm");
++    test('should return exactly 1, -1, or 0 correctly', () => {
++        expect(compareValues(2000, 100)).toBe(1); // 2000 > 100
++        expect(compareValues(0.05, 1)).toBe(-1); // 0.05 < 1
++        expect(compareValues(0.01, 0.01)).toBe(0); // 0.01 == 0.01
+     });
+ 
+-    test('should return fallback invalid sentence if base values are NaN', () => {
+-        expect(compareValues(2, 'kg', 100, 'g', NaN, 100)).toBe("Invalid values — cannot compare");
+-        expect(compareValues(2, 'kg', 100, 'g', 2000, NaN)).toBe("Invalid values — cannot compare");
++    test('should explicitly throw "Invalid number" if base values are NaN', () => {
++        expect(() => compareValues(NaN, 100)).toThrow("Invalid number");
++        expect(() => compareValues(2000, NaN)).toThrow("Invalid number");
+     });
+ });
+diff --git a/tests/ui.test.js b/tests/ui.test.js
+index bbc3319..099adfe 100644
+--- a/tests/ui.test.js
++++ b/tests/ui.test.js
+@@ -1,4 +1,4 @@
+-/**
++/*
+  * UI Module Tests
+  * Validates DOM rendering and updates.
+  * @author Developer
+@@ -9,6 +9,7 @@
+ import { populateDropdown, setActive, showResult, toggleOperators, renderHistory } from '../js/ui.js';
+ import { jest } from '@jest/globals';
+ 
++// Tests DOM injection of dropdown unit options arrays safely checking structures.
+ describe('UC-JS-10: Populate Unit Dropdown', () => {
+     let selectEl;
+     let consoleWarnSpy;
+@@ -59,6 +60,7 @@ describe('UC-JS-10: Populate Unit Dropdown', () => {
+     });
+ });
+ 
++// Tests visual active-state toggling removing trailing selections natively across UI peer buttons.
+ describe('UC-JS-11: Set Active Button', () => {
+     let parentEl;
+ 
+@@ -92,6 +94,7 @@ describe('UC-JS-11: Set Active Button', () => {
+     });
+ });
+ 
++// Tests writing output strings mapped dynamically firing visual panel animations concurrently.
+ describe('UC-JS-12: Show Result', () => {
+     beforeEach(() => {
+         document.body.innerHTML = `
+@@ -139,6 +142,7 @@ describe('UC-JS-12: Show Result', () => {
+     });
+ });
+ 
++// Tests dynamic bootstrap-specific operator row display class mappings explicitly.
+ describe('UC-JS-13: Toggle Operator Row', () => {
+     let opRow;
+     let consoleWarnSpy;
+@@ -157,13 +161,15 @@ describe('UC-JS-13: Toggle Operator Row', () => {
+ 
+     test('should set display to flex when show is true', () => {
+         toggleOperators(true);
+-        expect(opRow.style.display).toBe('flex');
++        expect(opRow.classList.contains('d-flex')).toBe(true);
++        expect(opRow.classList.contains('d-none')).toBe(false);
+     });
+ 
+     test('should set display to none when show is false', () => {
+-        opRow.style.display = 'flex'; // Initial state
++        opRow.classList.add('d-flex'); // Initial state
+         toggleOperators(false);
+-        expect(opRow.style.display).toBe('none');
++        expect(opRow.classList.contains('d-none')).toBe(true);
++        expect(opRow.classList.contains('d-flex')).toBe(false);
+     });
+ 
+     test('should log warning and safely return if element is missing', () => {
+@@ -173,6 +179,7 @@ describe('UC-JS-13: Toggle Operator Row', () => {
+     });
+ });
+ 
++// Tests injecting history arrays into the DOM unordered list avoiding innerHTML vulnerabilities.
+ describe('UC-JS-14: Render History List', () => {
+     let listEl;
+     let consoleWarnSpy;

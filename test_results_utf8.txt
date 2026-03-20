@@ -1,0 +1,1957 @@
+﻿
+> quantity-measurement-app@1.0.0 test
+> node --experimental-vm-modules node_modules/jest/bin/jest.js
+
+node.exe : 
+(node:42700) 
+ExperimentalWarning: 
+VM Modules is an 
+experimental feature 
+and might change at 
+any time
+At line:1 char:1
++ & "C:\Program Files\
+nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: ((node:4270   
+ 0) Ex...nge at an    
+y time:String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+(Use `node 
+--trace-warnings ...` 
+to show where the 
+warning was created)
+FAIL tests/conversion.
+test.js
+  ΓùÅ UC-JS-08: 
+Evaluate Arithmetic 
+Expression ΓÇ║ should 
+explicitly throw 
+"Invalid operator" 
+when given 
+unsupported operation 
+types
+
+    expect(received).t
+oThrow(expected)
+
+    Expected 
+substring: "Invalid 
+operator"
+
+    Received function 
+did not throw
+
+    [0m [90m 58 
+|[39m
+     [90m 59 |[39m  
+   test([32m'should 
+explicitly throw 
+"Invalid operator" 
+when given 
+unsupported operation 
+types'[39m[33m,[39m
+ () [33m=>[39m {
+    [31m[1m>[22m[3
+9m[90m 60 |[39m     
+    expect(() 
+[33m=>[39m evaluateE
+xpression([35m10[39m
+[33m,[39m [35m5[39
+m[33m,[39m [32m'*'
+[39m))[33m.[39mtoThr
+ow([32m"Invalid opera
+tor"[39m)[33m;[39m
+     [90m    |[39m  
+                      
+                      
+        
+[31m[1m^[22m[39m
+     [90m 61 |[39m  
+       expect(() 
+[33m=>[39m evaluateE
+xpression([35m10[39m
+[33m,[39m [35m5[39
+m[33m,[39m [32m'/'
+[39m))[33m.[39mtoThr
+ow([32m"Invalid opera
+tor"[39m)[33m;[39m
+     [90m 62 |[39m  
+       expect(() 
+[33m=>[39m evaluateE
+xpression([35m10[39m
+[33m,[39m [35m5[39
+m[33m,[39m [32m'add
+'[39m))[33m.[39mtoT
+hrow([32m"Invalid ope
+rator"[39m)[33m;[39
+m
+     [90m 63 |[39m  
+   })[33m;[39m[0m
+
+      at 
+Object.toThrow (tests/
+conversion.test.js:60:
+54)
+
+  ΓùÅ UC-JS-09: 
+Compare Two 
+Measurement Values 
+ΓÇ║ should return 
+exactly GREATER, 
+LESS, or EQUAL 
+statements correctly
+
+    Invalid number
+
+    [0m [90m 66 
+|[39m 
+[36mexport[39m 
+[36mfunction[39m com
+pareValues(val1[33m,
+[39m val2) {
+     [90m 67 |[39m  
+   [36mif[39m 
+([36mtypeof[39m 
+val1 [33m!==[39m 
+[32m'number'[39m 
+[33m||[39m [33mNumb
+er[39m[33m.[39misNa
+N(val1) [33m||[39m 
+[36mtypeof[39m val2 
+[33m!==[39m 
+[32m'number'[39m 
+[33m||[39m [33mNumb
+er[39m[33m.[39misNa
+N(val2)) {
+    [31m[1m>[22m[3
+9m[90m 68 |[39m     
+    [36mthrow[39m 
+[36mnew[39m [33mErr
+or[39m([32m"Invalid 
+number"[39m)[33m;[3
+9m
+     [90m    |[39m  
+             
+[31m[1m^[22m[39m
+     [90m 69 |[39m  
+   }
+     [90m 70 |[39m
+     [90m 71 |[39m  
+   [36mif[39m (val1 
+[33m>[39m val2) 
+[36mreturn[39m [35m
+1[39m[33m;[39m[0m
+
+      at 
+compareValues (js/conv
+ersion.js:68:15)
+      at 
+Object.compareValues (
+tests/conversion.test.
+js:70:16)
+
+  ΓùÅ UC-JS-09: 
+Compare Two 
+Measurement Values 
+ΓÇ║ should return 
+fallback invalid 
+sentence if base 
+values are NaN
+
+    Invalid number
+
+    [0m [90m 66 
+|[39m 
+[36mexport[39m 
+[36mfunction[39m com
+pareValues(val1[33m,
+[39m val2) {
+     [90m 67 |[39m  
+   [36mif[39m 
+([36mtypeof[39m 
+val1 [33m!==[39m 
+[32m'number'[39m 
+[33m||[39m [33mNumb
+er[39m[33m.[39misNa
+N(val1) [33m||[39m 
+[36mtypeof[39m val2 
+[33m!==[39m 
+[32m'number'[39m 
+[33m||[39m [33mNumb
+er[39m[33m.[39misNa
+N(val2)) {
+    [31m[1m>[22m[3
+9m[90m 68 |[39m     
+    [36mthrow[39m 
+[36mnew[39m [33mErr
+or[39m([32m"Invalid 
+number"[39m)[33m;[3
+9m
+     [90m    |[39m  
+             
+[31m[1m^[22m[39m
+     [90m 69 |[39m  
+   }
+     [90m 70 |[39m
+     [90m 71 |[39m  
+   [36mif[39m (val1 
+[33m>[39m val2) 
+[36mreturn[39m [35m
+1[39m[33m;[39m[0m
+
+      at 
+compareValues (js/conv
+ersion.js:68:15)
+      at 
+Object.compareValues (
+tests/conversion.test.
+js:76:16)
+
+FAIL tests/ui.test.js
+  ΓùÅ UC-JS-13: 
+Toggle Operator Row 
+ΓÇ║ should set 
+display to flex when 
+show is true
+
+    expect(received).t
+oBe(expected) // 
+Object.is equality
+
+    Expected: "flex"
+    Received: "none"
+
+    [0m [90m 162 
+|[39m     
+test([32m'should set 
+display to flex when 
+show is 
+true'[39m[33m,[39m 
+() [33m=>[39m {
+     [90m 163 |[39m 
+        toggleOperator
+s([36mtrue[39m)[33m
+;[39m
+    [31m[1m>[22m[3
+9m[90m 164 |[39m    
+     expect(opRow[33m
+.[39mstyle[33m.[39m
+display)[33m.[39mtoB
+e([32m'flex'[39m)[3
+3m;[39m
+     [90m     |[39m 
+                      
+              
+[31m[1m^[22m[39m
+     [90m 165 |[39m 
+    })[33m;[39m
+     [90m 166 |[39m
+     [90m 167 |[39m 
+    test([32m'should 
+set display to none 
+when show is false'[3
+9m[33m,[39m () 
+[33m=>[39m {[0m
+
+      at Object.toBe (
+tests/ui.test.js:164:3
+7)
+
+  ΓùÅ UC-JS-13: 
+Toggle Operator Row 
+ΓÇ║ should set 
+display to none when 
+show is false
+
+    expect(received).t
+oBe(expected) // 
+Object.is equality
+
+    Expected: "none"
+    Received: "flex"
+
+    [0m [90m 168 
+|[39m         opRow[
+33m.[39mstyle[33m.[
+39mdisplay 
+[33m=[39m [32m'flex
+'[39m[33m;[39m 
+[90m// Initial 
+state[39m
+     [90m 169 |[39m 
+        toggleOperator
+s([36mfalse[39m)[33
+m;[39m
+    [31m[1m>[22m[3
+9m[90m 170 |[39m    
+     expect(opRow[33m
+.[39mstyle[33m.[39m
+display)[33m.[39mtoB
+e([32m'none'[39m)[3
+3m;[39m
+     [90m     |[39m 
+                      
+              
+[31m[1m^[22m[39m
+     [90m 171 |[39m 
+    })[33m;[39m
+     [90m 172 |[39m
+     [90m 173 |[39m 
+    test([32m'should 
+log warning and 
+safely return if 
+element is missing'[3
+9m[33m,[39m () 
+[33m=>[39m {[0m
+
+      at Object.toBe (
+tests/ui.test.js:170:3
+7)
+
+FAIL tests/app.test.js
+  ΓùÅ Console
+
+    console.warn
+      Operator 
+selector row not 
+found in DOM
+
+    [0m [90m 71 
+|[39m     
+[36mconst[39m opRow 
+[33m=[39m document[
+33m.[39mquerySelector
+([32m"#operator-selec
+tor"[39m)[33m;[39m
+     [90m 72 |[39m  
+   [36mif[39m 
+([33m![39mopRow) {
+    [31m[1m>[22m[3
+9m[90m 73 |[39m     
+    console[33m.[39m
+warn([32m"Operator 
+selector row not 
+found in 
+DOM"[39m)[33m;[39m
+     [90m    |[39m  
+               
+[31m[1m^[22m[39m
+     [90m 74 |[39m  
+       [36mreturn[39
+m[33m;[39m
+     [90m 75 |[39m  
+   }
+     [90m 76 |[39m  
+   [0m
+
+      at warn 
+(js/ui.js:73:17)
+      at 
+toggleOperators 
+(js/app.js:240:5)
+      at initApp 
+(js/app.js:263:9)
+
+    console.error
+      Units 
+initialization error: 
+ReferenceError: fetch 
+is not defined
+          at getUnits 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\js\api.js:
+13:17)
+          at getUnits 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\js\app.js:
+98:29)
+          at 
+loadUnits (C:\Users\ha
+3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\js\app.js:243:15
+)
+          at initApp (
+C:\Users\ha3001\OneDri
+ve - 7-Eleven, Inc\Des
+ktop\qma-f\js\app.js:2
+63:9)
+          at SourceTex
+tModule.evaluate (node
+:internal/vm/module:23
+3:26)
+          at Runtime.l
+inkAndEvaluateModule (
+C:\Users\ha3001\OneDri
+ve - 7-Eleven, Inc\Des
+ktop\qma-f\node_module
+s\jest-runtime\build\i
+ndex.js:710:20)
+          at 
+jestAdapter (C:\Users\
+ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-circus\build\legacy-
+code-todo-rewrite\jest
+Adapter.js:75:5)
+          at 
+runTestInternal (C:\Us
+ers\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-runner\build\runTest
+.js:367:16)
+          at runTest (
+C:\Users\ha3001\OneDri
+ve - 7-Eleven, Inc\Des
+ktop\qma-f\node_module
+s\jest-runner\build\ru
+nTest.js:444:34)
+
+    [0m [90m 104 
+|[39m         state[
+33m.[39mtoUnit 
+[33m=[39m [32m""[3
+9m[33m;[39m
+     [90m 105 |[39m 
+    } [36mcatch[39m 
+(error) {
+    [31m[1m>[22m[3
+9m[90m 106 |[39m    
+     console[33m.[39
+merror([32m"Units 
+initialization error:"
+[39m[33m,[39m 
+error)[33m;[39m
+     [90m     |[39m 
+                
+[31m[1m^[22m[39m
+     [90m 107 |[39m 
+        
+[36mthrow[39m 
+error[33m;[39m
+     [90m 108 |[39m 
+    }
+     [90m 109 |[39m 
+}[33m;[39m[0m
+
+      at error 
+(js/app.js:106:17)
+      at initApp 
+(js/app.js:243:9)
+
+    console.error
+      Units 
+initialization error: 
+ReferenceError: fetch 
+is not defined
+          at getUnits 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\js\api.js:
+13:17)
+          at getUnits 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\js\app.js:
+98:29)
+          at 
+loadUnits (C:\Users\ha
+3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\js\app.js:243:15
+)
+          at initApp (
+C:\Users\ha3001\OneDri
+ve - 7-Eleven, Inc\Des
+ktop\qma-f\js\app.js:2
+63:9)
+          at SourceTex
+tModule.evaluate (node
+:internal/vm/module:23
+3:26)
+          at Runtime.l
+inkAndEvaluateModule (
+C:\Users\ha3001\OneDri
+ve - 7-Eleven, Inc\Des
+ktop\qma-f\node_module
+s\jest-runtime\build\i
+ndex.js:710:20)
+          at 
+jestAdapter (C:\Users\
+ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-circus\build\legacy-
+code-todo-rewrite\jest
+Adapter.js:75:5)
+          at 
+runTestInternal (C:\Us
+ers\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-runner\build\runTest
+.js:367:16)
+          at runTest (
+C:\Users\ha3001\OneDri
+ve - 7-Eleven, Inc\Des
+ktop\qma-f\node_module
+s\jest-runner\build\ru
+nTest.js:444:34)
+
+    [0m [90m 243 
+|[39m         
+[36mawait[39m loadUn
+its(state[33m.[39mty
+pe)[33m;[39m
+     [90m 244 |[39m 
+    } [36mcatch[39m 
+(error) {
+    [31m[1m>[22m[3
+9m[90m 245 |[39m    
+     console[33m.[39
+merror([32m"Units 
+initialization error:"
+[39m[33m,[39m 
+error)[33m;[39m
+     [90m     |[39m 
+                
+[31m[1m^[22m[39m
+     [90m 246 |[39m 
+        
+[36mconst[39m 
+resultValue 
+[33m=[39m document[
+33m.[39mquerySelector
+([32m"#result-value"
+[39m)[33m;[39m
+     [90m 247 |[39m 
+        [36mif[39m 
+(resultValue) {
+     [90m 248 |[39m 
+            resultValu
+e[33m.[39mtextConten
+t [33m=[39m 
+[32m"Server unavailab
+le"[39m[33m;[39m[0
+m
+
+      at error 
+(js/app.js:245:17)
+
+    console.error
+      Failed to fetch 
+history data: 
+ReferenceError: fetch 
+is not defined
+          at 
+getHistory (C:\Users\h
+a3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\js\api.js:66:21)
+          at 
+getHistory (C:\Users\h
+a3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\js\app.js:223:35
+)
+          at 
+loadHistory (C:\Users\
+ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\js\app.js:253:15
+)
+
+    [0m [90m 75 
+|[39m         
+[36mreturn[39m data
+[33m.[39msort((a[33m
+,[39m b) 
+[33m=>[39m 
+[36mnew[39m [33mDat
+e[39m(b[33m.[39mtim
+estamp) [33m-[39m 
+[36mnew[39m [33mDat
+e[39m(a[33m.[39mtim
+estamp))[33m;[39m
+     [90m 76 |[39m  
+   } [36mcatch[39m 
+(error) {
+    [31m[1m>[22m[3
+9m[90m 77 |[39m     
+    console[33m.[39m
+error([32m"Failed to 
+fetch history data:"[
+39m[33m,[39m 
+error)[33m;[39m
+     [90m    |[39m  
+               
+[31m[1m^[22m[39m
+     [90m 78 |[39m  
+       
+[36mreturn[39m 
+[][33m;[39m
+     [90m 79 |[39m  
+   }
+     [90m 80 |[39m 
+}[0m
+
+      at error 
+(js/api.js:77:17)
+      at getHistory 
+(js/app.js:223:35)
+      at loadHistory 
+(js/app.js:253:15)
+
+    console.warn
+      History list 
+container not found 
+in DOM
+
+    [0m [90m 89 
+|[39m     
+[36mconst[39m list 
+[33m=[39m document[
+33m.[39mquerySelector
+([32m"#history-list"
+[39m)[33m;[39m
+     [90m 90 |[39m  
+   [36mif[39m 
+([33m![39mlist) {
+    [31m[1m>[22m[3
+9m[90m 91 |[39m     
+    console[33m.[39m
+warn([32m"History 
+list container not 
+found in 
+DOM"[39m)[33m;[39m
+     [90m    |[39m  
+               
+[31m[1m^[22m[39m
+     [90m 92 |[39m  
+       [36mreturn[39
+m[33m;[39m
+     [90m 93 |[39m  
+   }
+     [90m 94 
+|[39m[0m
+
+      at warn 
+(js/ui.js:91:17)
+      at 
+renderHistory 
+(js/app.js:224:9)
+      at initApp 
+(js/app.js:253:9)
+
+    console.warn
+      Operator 
+selector row not 
+found in DOM
+
+    [0m [90m 71 
+|[39m     
+[36mconst[39m opRow 
+[33m=[39m document[
+33m.[39mquerySelector
+([32m"#operator-selec
+tor"[39m)[33m;[39m
+     [90m 72 |[39m  
+   [36mif[39m 
+([33m![39mopRow) {
+    [31m[1m>[22m[3
+9m[90m 73 |[39m     
+    console[33m.[39m
+warn([32m"Operator 
+selector row not 
+found in 
+DOM"[39m)[33m;[39m
+     [90m    |[39m  
+               
+[31m[1m^[22m[39m
+     [90m 74 |[39m  
+       [36mreturn[39
+m[33m;[39m
+     [90m 75 |[39m  
+   }
+     [90m 76 |[39m  
+   [0m
+
+      at warn 
+(js/ui.js:73:17)
+      at 
+toggleOperators 
+(js/app.js:240:5)
+      at 
+Object.initApp (tests/
+app.test.js:28:22)
+
+    console.error
+      Units 
+initialization error: 
+ReferenceError: fetch 
+is not defined
+          at getUnits 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\js\api.js:
+13:17)
+          at getUnits 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\js\app.js:
+98:29)
+          at 
+loadUnits (C:\Users\ha
+3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\js\app.js:243:15
+)
+          at 
+Object.initApp (C:\Use
+rs\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\tests\app.test.j
+s:28:22)
+          at Promise.t
+hen.completed (C:\User
+s\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-circus\build\utils.j
+s:298:28)
+          at new 
+Promise (<anonymous>)
+          at 
+callAsyncCircusFn (C:\
+Users\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\utils
+.js:231:10)
+          at 
+_callCircusTest (C:\Us
+ers\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-circus\build\run.js:
+316:40)
+          at _runTest 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\node_modul
+es\jest-circus\build\r
+un.js:252:3)
+          at _runTests
+ForDescribeBlock (C:\U
+sers\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\run.j
+s:126:9)
+          at _runTests
+ForDescribeBlock (C:\U
+sers\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\run.j
+s:121:9)
+          at run (C:\U
+sers\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\run.j
+s:71:3)
+          at runAndTra
+nsformResultsToJestFor
+mat (C:\Users\ha3001\O
+neDrive - 7-Eleven, In
+c\Desktop\qma-f\node_m
+odules\jest-circus\bui
+ld\legacy-code-todo-re
+write\jestAdapterInit.
+js:122:21)
+          at 
+jestAdapter (C:\Users\
+ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-circus\build\legacy-
+code-todo-rewrite\jest
+Adapter.js:79:19)
+          at 
+runTestInternal (C:\Us
+ers\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-runner\build\runTest
+.js:367:16)
+          at runTest (
+C:\Users\ha3001\OneDri
+ve - 7-Eleven, Inc\Des
+ktop\qma-f\node_module
+s\jest-runner\build\ru
+nTest.js:444:34)
+
+    [0m [90m 104 
+|[39m         state[
+33m.[39mtoUnit 
+[33m=[39m [32m""[3
+9m[33m;[39m
+     [90m 105 |[39m 
+    } [36mcatch[39m 
+(error) {
+    [31m[1m>[22m[3
+9m[90m 106 |[39m    
+     console[33m.[39
+merror([32m"Units 
+initialization error:"
+[39m[33m,[39m 
+error)[33m;[39m
+     [90m     |[39m 
+                
+[31m[1m^[22m[39m
+     [90m 107 |[39m 
+        
+[36mthrow[39m 
+error[33m;[39m
+     [90m 108 |[39m 
+    }
+     [90m 109 |[39m 
+}[33m;[39m[0m
+
+      at error 
+(js/app.js:106:17)
+      at initApp 
+(js/app.js:243:9)
+      at 
+Object.<anonymous> (te
+sts/app.test.js:28:9)
+
+    console.error
+      Units 
+initialization error: 
+ReferenceError: fetch 
+is not defined
+          at getUnits 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\js\api.js:
+13:17)
+          at getUnits 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\js\app.js:
+98:29)
+          at 
+loadUnits (C:\Users\ha
+3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\js\app.js:243:15
+)
+          at 
+Object.initApp (C:\Use
+rs\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\tests\app.test.j
+s:28:22)
+          at Promise.t
+hen.completed (C:\User
+s\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-circus\build\utils.j
+s:298:28)
+          at new 
+Promise (<anonymous>)
+          at 
+callAsyncCircusFn (C:\
+Users\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\utils
+.js:231:10)
+          at 
+_callCircusTest (C:\Us
+ers\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-circus\build\run.js:
+316:40)
+          at _runTest 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\node_modul
+es\jest-circus\build\r
+un.js:252:3)
+          at _runTests
+ForDescribeBlock (C:\U
+sers\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\run.j
+s:126:9)
+          at _runTests
+ForDescribeBlock (C:\U
+sers\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\run.j
+s:121:9)
+          at run (C:\U
+sers\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\run.j
+s:71:3)
+          at runAndTra
+nsformResultsToJestFor
+mat (C:\Users\ha3001\O
+neDrive - 7-Eleven, In
+c\Desktop\qma-f\node_m
+odules\jest-circus\bui
+ld\legacy-code-todo-re
+write\jestAdapterInit.
+js:122:21)
+          at 
+jestAdapter (C:\Users\
+ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-circus\build\legacy-
+code-todo-rewrite\jest
+Adapter.js:79:19)
+          at 
+runTestInternal (C:\Us
+ers\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-runner\build\runTest
+.js:367:16)
+          at runTest (
+C:\Users\ha3001\OneDri
+ve - 7-Eleven, Inc\Des
+ktop\qma-f\node_module
+s\jest-runner\build\ru
+nTest.js:444:34)
+
+    [0m [90m 243 
+|[39m         
+[36mawait[39m loadUn
+its(state[33m.[39mty
+pe)[33m;[39m
+     [90m 244 |[39m 
+    } [36mcatch[39m 
+(error) {
+    [31m[1m>[22m[3
+9m[90m 245 |[39m    
+     console[33m.[39
+merror([32m"Units 
+initialization error:"
+[39m[33m,[39m 
+error)[33m;[39m
+     [90m     |[39m 
+                
+[31m[1m^[22m[39m
+     [90m 246 |[39m 
+        
+[36mconst[39m 
+resultValue 
+[33m=[39m document[
+33m.[39mquerySelector
+([32m"#result-value"
+[39m)[33m;[39m
+     [90m 247 |[39m 
+        [36mif[39m 
+(resultValue) {
+     [90m 248 |[39m 
+            resultValu
+e[33m.[39mtextConten
+t [33m=[39m 
+[32m"Server unavailab
+le"[39m[33m;[39m[0
+m
+
+      at error 
+(js/app.js:245:17)
+      at 
+Object.<anonymous> (te
+sts/app.test.js:28:9)
+
+    console.error
+      Failed to fetch 
+history data: 
+ReferenceError: fetch 
+is not defined
+          at 
+getHistory (C:\Users\h
+a3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\js\api.js:66:21)
+          at 
+getHistory (C:\Users\h
+a3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\js\app.js:223:35
+)
+          at 
+loadHistory (C:\Users\
+ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\js\app.js:253:15
+)
+          at 
+Object.<anonymous> (C:
+\Users\ha3001\OneDrive
+ - 7-Eleven, Inc\Deskt
+op\qma-f\tests\app.tes
+t.js:28:9)
+
+    [0m [90m 75 
+|[39m         
+[36mreturn[39m data
+[33m.[39msort((a[33m
+,[39m b) 
+[33m=>[39m 
+[36mnew[39m [33mDat
+e[39m(b[33m.[39mtim
+estamp) [33m-[39m 
+[36mnew[39m [33mDat
+e[39m(a[33m.[39mtim
+estamp))[33m;[39m
+     [90m 76 |[39m  
+   } [36mcatch[39m 
+(error) {
+    [31m[1m>[22m[3
+9m[90m 77 |[39m     
+    console[33m.[39m
+error([32m"Failed to 
+fetch history data:"[
+39m[33m,[39m 
+error)[33m;[39m
+     [90m    |[39m  
+               
+[31m[1m^[22m[39m
+     [90m 78 |[39m  
+       
+[36mreturn[39m 
+[][33m;[39m
+     [90m 79 |[39m  
+   }
+     [90m 80 |[39m 
+}[0m
+
+      at error 
+(js/api.js:77:17)
+      at getHistory 
+(js/app.js:223:35)
+      at loadHistory 
+(js/app.js:253:15)
+      at 
+Object.<anonymous> (te
+sts/app.test.js:28:9)
+
+    console.warn
+      History list 
+container not found 
+in DOM
+
+    [0m [90m 89 
+|[39m     
+[36mconst[39m list 
+[33m=[39m document[
+33m.[39mquerySelector
+([32m"#history-list"
+[39m)[33m;[39m
+     [90m 90 |[39m  
+   [36mif[39m 
+([33m![39mlist) {
+    [31m[1m>[22m[3
+9m[90m 91 |[39m     
+    console[33m.[39m
+warn([32m"History 
+list container not 
+found in 
+DOM"[39m)[33m;[39m
+     [90m    |[39m  
+               
+[31m[1m^[22m[39m
+     [90m 92 |[39m  
+       [36mreturn[39
+m[33m;[39m
+     [90m 93 |[39m  
+   }
+     [90m 94 
+|[39m[0m
+
+      at warn 
+(js/ui.js:91:17)
+      at 
+renderHistory 
+(js/app.js:224:9)
+      at initApp 
+(js/app.js:253:9)
+      at 
+Object.<anonymous> (te
+sts/app.test.js:28:9)
+
+    console.warn
+      Operator 
+selector row not 
+found in DOM
+
+    [0m [90m 71 
+|[39m     
+[36mconst[39m opRow 
+[33m=[39m document[
+33m.[39mquerySelector
+([32m"#operator-selec
+tor"[39m)[33m;[39m
+     [90m 72 |[39m  
+   [36mif[39m 
+([33m![39mopRow) {
+    [31m[1m>[22m[3
+9m[90m 73 |[39m     
+    console[33m.[39m
+warn([32m"Operator 
+selector row not 
+found in 
+DOM"[39m)[33m;[39m
+     [90m    |[39m  
+               
+[31m[1m^[22m[39m
+     [90m 74 |[39m  
+       [36mreturn[39
+m[33m;[39m
+     [90m 75 |[39m  
+   }
+     [90m 76 |[39m  
+   [0m
+
+      at warn 
+(js/ui.js:73:17)
+      at 
+toggleOperators 
+(js/app.js:240:5)
+      at 
+Object.initApp (tests/
+app.test.js:48:15)
+
+    console.error
+      Units 
+initialization error: 
+ReferenceError: fetch 
+is not defined
+          at getUnits 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\js\api.js:
+13:17)
+          at getUnits 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\js\app.js:
+98:29)
+          at 
+loadUnits (C:\Users\ha
+3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\js\app.js:243:15
+)
+          at 
+Object.initApp (C:\Use
+rs\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\tests\app.test.j
+s:48:15)
+          at Promise.t
+hen.completed (C:\User
+s\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-circus\build\utils.j
+s:298:28)
+          at new 
+Promise (<anonymous>)
+          at 
+callAsyncCircusFn (C:\
+Users\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\utils
+.js:231:10)
+          at 
+_callCircusHook (C:\Us
+ers\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-circus\build\run.js:
+281:40)
+          at _runTest 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\node_modul
+es\jest-circus\build\r
+un.js:246:5)
+          at _runTests
+ForDescribeBlock (C:\U
+sers\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\run.j
+s:126:9)
+          at _runTests
+ForDescribeBlock (C:\U
+sers\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\run.j
+s:121:9)
+          at run (C:\U
+sers\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\run.j
+s:71:3)
+          at runAndTra
+nsformResultsToJestFor
+mat (C:\Users\ha3001\O
+neDrive - 7-Eleven, In
+c\Desktop\qma-f\node_m
+odules\jest-circus\bui
+ld\legacy-code-todo-re
+write\jestAdapterInit.
+js:122:21)
+          at 
+jestAdapter (C:\Users\
+ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-circus\build\legacy-
+code-todo-rewrite\jest
+Adapter.js:79:19)
+          at 
+runTestInternal (C:\Us
+ers\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-runner\build\runTest
+.js:367:16)
+          at runTest (
+C:\Users\ha3001\OneDri
+ve - 7-Eleven, Inc\Des
+ktop\qma-f\node_module
+s\jest-runner\build\ru
+nTest.js:444:34)
+
+    [0m [90m 104 
+|[39m         state[
+33m.[39mtoUnit 
+[33m=[39m [32m""[3
+9m[33m;[39m
+     [90m 105 |[39m 
+    } [36mcatch[39m 
+(error) {
+    [31m[1m>[22m[3
+9m[90m 106 |[39m    
+     console[33m.[39
+merror([32m"Units 
+initialization error:"
+[39m[33m,[39m 
+error)[33m;[39m
+     [90m     |[39m 
+                
+[31m[1m^[22m[39m
+     [90m 107 |[39m 
+        
+[36mthrow[39m 
+error[33m;[39m
+     [90m 108 |[39m 
+    }
+     [90m 109 |[39m 
+}[33m;[39m[0m
+
+      at error 
+(js/app.js:106:17)
+      at initApp 
+(js/app.js:243:9)
+      at 
+Object.<anonymous> (te
+sts/app.test.js:48:9)
+
+    console.error
+      Units 
+initialization error: 
+ReferenceError: fetch 
+is not defined
+          at getUnits 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\js\api.js:
+13:17)
+          at getUnits 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\js\app.js:
+98:29)
+          at 
+loadUnits (C:\Users\ha
+3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\js\app.js:243:15
+)
+          at 
+Object.initApp (C:\Use
+rs\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\tests\app.test.j
+s:48:15)
+          at Promise.t
+hen.completed (C:\User
+s\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-circus\build\utils.j
+s:298:28)
+          at new 
+Promise (<anonymous>)
+          at 
+callAsyncCircusFn (C:\
+Users\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\utils
+.js:231:10)
+          at 
+_callCircusHook (C:\Us
+ers\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-circus\build\run.js:
+281:40)
+          at _runTest 
+(C:\Users\ha3001\OneDr
+ive - 7-Eleven, Inc\De
+sktop\qma-f\node_modul
+es\jest-circus\build\r
+un.js:246:5)
+          at _runTests
+ForDescribeBlock (C:\U
+sers\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\run.j
+s:126:9)
+          at _runTests
+ForDescribeBlock (C:\U
+sers\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\run.j
+s:121:9)
+          at run (C:\U
+sers\ha3001\OneDrive 
+- 7-Eleven, Inc\Deskto
+p\qma-f\node_modules\j
+est-circus\build\run.j
+s:71:3)
+          at runAndTra
+nsformResultsToJestFor
+mat (C:\Users\ha3001\O
+neDrive - 7-Eleven, In
+c\Desktop\qma-f\node_m
+odules\jest-circus\bui
+ld\legacy-code-todo-re
+write\jestAdapterInit.
+js:122:21)
+          at 
+jestAdapter (C:\Users\
+ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-circus\build\legacy-
+code-todo-rewrite\jest
+Adapter.js:79:19)
+          at 
+runTestInternal (C:\Us
+ers\ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\node_modules\jes
+t-runner\build\runTest
+.js:367:16)
+          at runTest (
+C:\Users\ha3001\OneDri
+ve - 7-Eleven, Inc\Des
+ktop\qma-f\node_module
+s\jest-runner\build\ru
+nTest.js:444:34)
+
+    [0m [90m 243 
+|[39m         
+[36mawait[39m loadUn
+its(state[33m.[39mty
+pe)[33m;[39m
+     [90m 244 |[39m 
+    } [36mcatch[39m 
+(error) {
+    [31m[1m>[22m[3
+9m[90m 245 |[39m    
+     console[33m.[39
+merror([32m"Units 
+initialization error:"
+[39m[33m,[39m 
+error)[33m;[39m
+     [90m     |[39m 
+                
+[31m[1m^[22m[39m
+     [90m 246 |[39m 
+        
+[36mconst[39m 
+resultValue 
+[33m=[39m document[
+33m.[39mquerySelector
+([32m"#result-value"
+[39m)[33m;[39m
+     [90m 247 |[39m 
+        [36mif[39m 
+(resultValue) {
+     [90m 248 |[39m 
+            resultValu
+e[33m.[39mtextConten
+t [33m=[39m 
+[32m"Server unavailab
+le"[39m[33m;[39m[0
+m
+
+      at error 
+(js/app.js:245:17)
+      at 
+Object.<anonymous> (te
+sts/app.test.js:48:9)
+
+    console.error
+      Failed to fetch 
+history data: 
+ReferenceError: fetch 
+is not defined
+          at 
+getHistory (C:\Users\h
+a3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\js\api.js:66:21)
+          at 
+getHistory (C:\Users\h
+a3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\js\app.js:223:35
+)
+          at 
+loadHistory (C:\Users\
+ha3001\OneDrive - 
+7-Eleven, Inc\Desktop\
+qma-f\js\app.js:253:15
+)
+          at 
+Object.<anonymous> (C:
+\Users\ha3001\OneDrive
+ - 7-Eleven, Inc\Deskt
+op\qma-f\tests\app.tes
+t.js:48:9)
+
+    [0m [90m 75 
+|[39m         
+[36mreturn[39m data
+[33m.[39msort((a[33m
+,[39m b) 
+[33m=>[39m 
+[36mnew[39m [33mDat
+e[39m(b[33m.[39mtim
+estamp) [33m-[39m 
+[36mnew[39m [33mDat
+e[39m(a[33m.[39mtim
+estamp))[33m;[39m
+     [90m 76 |[39m  
+   } [36mcatch[39m 
+(error) {
+    [31m[1m>[22m[3
+9m[90m 77 |[39m     
+    console[33m.[39m
+error([32m"Failed to 
+fetch history data:"[
+39m[33m,[39m 
+error)[33m;[39m
+     [90m    |[39m  
+               
+[31m[1m^[22m[39m
+     [90m 78 |[39m  
+       
+[36mreturn[39m 
+[][33m;[39m
+     [90m 79 |[39m  
+   }
+     [90m 80 |[39m 
+}[0m
+
+      at error 
+(js/api.js:77:17)
+      at getHistory 
+(js/app.js:223:35)
+      at loadHistory 
+(js/app.js:253:15)
+      at 
+Object.<anonymous> (te
+sts/app.test.js:48:9)
+
+    console.warn
+      History list 
+container not found 
+in DOM
+
+    [0m [90m 89 
+|[39m     
+[36mconst[39m list 
+[33m=[39m document[
+33m.[39mquerySelector
+([32m"#history-list"
+[39m)[33m;[39m
+     [90m 90 |[39m  
+   [36mif[39m 
+([33m![39mlist) {
+    [31m[1m>[22m[3
+9m[90m 91 |[39m     
+    console[33m.[39m
+warn([32m"History 
+list container not 
+found in 
+DOM"[39m)[33m;[39m
+     [90m    |[39m  
+               
+[31m[1m^[22m[39m
+     [90m 92 |[39m  
+       [36mreturn[39
+m[33m;[39m
+     [90m 93 |[39m  
+   }
+     [90m 94 
+|[39m[0m
+
+      at warn 
+(js/ui.js:91:17)
+      at 
+renderHistory 
+(js/app.js:224:9)
+      at initApp 
+(js/app.js:253:9)
+      at 
+Object.<anonymous> (te
+sts/app.test.js:48:9)
+
+    console.warn
+      Dropdown 
+element not found in 
+DOM
+
+    [0m [90m  9 
+|[39m 
+[36mexport[39m 
+[36mfunction[39m pop
+ulateDropdown(selectEl
+[33m,[39m units) {
+     [90m 10 |[39m  
+   [36mif[39m 
+([33m![39mselectEl) 
+{
+    [31m[1m>[22m[3
+9m[90m 11 |[39m     
+    console[33m.[39m
+warn([32m"Dropdown 
+element not found in 
+DOM"[39m)[33m;[39m
+     [90m    |[39m  
+               
+[31m[1m^[22m[39m
+     [90m 12 |[39m  
+       [36mreturn[39
+m[33m;[39m
+     [90m 13 |[39m  
+   }
+     [90m 14 
+|[39m[0m
+
+      at warn 
+(js/ui.js:11:17)
+      at 
+populateDropdown 
+(js/app.js:101:9)
+      at initApp 
+(js/app.js:243:9)
+      at 
+Object.<anonymous> (te
+sts/app.test.js:95:9)
+
+    console.warn
+      Dropdown 
+element not found in 
+DOM
+
+    [0m [90m  9 
+|[39m 
+[36mexport[39m 
+[36mfunction[39m pop
+ulateDropdown(selectEl
+[33m,[39m units) {
+     [90m 10 |[39m  
+   [36mif[39m 
+([33m![39mselectEl) 
+{
+    [31m[1m>[22m[3
+9m[90m 11 |[39m     
+    console[33m.[39m
+warn([32m"Dropdown 
+element not found in 
+DOM"[39m)[33m;[39m
+     [90m    |[39m  
+               
+[31m[1m^[22m[39m
+     [90m 12 |[39m  
+       [36mreturn[39
+m[33m;[39m
+     [90m 13 |[39m  
+   }
+     [90m 14 
+|[39m[0m
+
+      at warn 
+(js/ui.js:11:17)
+      at 
+populateDropdown 
+(js/app.js:102:9)
+      at initApp 
+(js/app.js:243:9)
+      at 
+Object.<anonymous> (te
+sts/app.test.js:95:9)
+
+    console.warn
+      History list 
+container not found 
+in DOM
+
+    [0m [90m 89 
+|[39m     
+[36mconst[39m list 
+[33m=[39m document[
+33m.[39mquerySelector
+([32m"#history-list"
+[39m)[33m;[39m
+     [90m 90 |[39m  
+   [36mif[39m 
+([33m![39mlist) {
+    [31m[1m>[22m[3
+9m[90m 91 |[39m     
+    console[33m.[39m
+warn([32m"History 
+list container not 
+found in 
+DOM"[39m)[33m;[39m
+     [90m    |[39m  
+               
+[31m[1m^[22m[39m
+     [90m 92 |[39m  
+       [36mreturn[39
+m[33m;[39m
+     [90m 93 |[39m  
+   }
+     [90m 94 
+|[39m[0m
+
+      at warn 
+(js/ui.js:91:17)
+      at 
+renderHistory 
+(js/app.js:224:9)
+      at initApp 
+(js/app.js:253:9)
+      at 
+Object.<anonymous> (te
+sts/app.test.js:95:9)
+
+    console.warn
+      Operator 
+selector row not 
+found in DOM
+
+    [0m [90m 71 
+|[39m     
+[36mconst[39m opRow 
+[33m=[39m document[
+33m.[39mquerySelector
+([32m"#operator-selec
+tor"[39m)[33m;[39m
+     [90m 72 |[39m  
+   [36mif[39m 
+([33m![39mopRow) {
+    [31m[1m>[22m[3
+9m[90m 73 |[39m     
+    console[33m.[39m
+warn([32m"Operator 
+selector row not 
+found in 
+DOM"[39m)[33m;[39m
+     [90m    |[39m  
+               
+[31m[1m^[22m[39m
+     [90m 74 |[39m  
+       [36mreturn[39
+m[33m;[39m
+     [90m 75 |[39m  
+   }
+     [90m 76 |[39m  
+   [0m
+
+      at warn 
+(js/ui.js:73:17)
+      at 
+toggleOperators 
+(js/app.js:240:5)
+      at 
+Object.initApp (tests/
+app.test.js:130:15)
+
+    console.warn
+      History list 
+container not found 
+in DOM
+
+    [0m [90m 89 
+|[39m     
+[36mconst[39m list 
+[33m=[39m document[
+33m.[39mquerySelector
+([32m"#history-list"
+[39m)[33m;[39m
+     [90m 90 |[39m  
+   [36mif[39m 
+([33m![39mlist) {
+    [31m[1m>[22m[3
+9m[90m 91 |[39m     
+    console[33m.[39m
+warn([32m"History 
+list container not 
+found in 
+DOM"[39m)[33m;[39m
+     [90m    |[39m  
+               
+[31m[1m^[22m[39m
+     [90m 92 |[39m  
+       [36mreturn[39
+m[33m;[39m
+     [90m 93 |[39m  
+   }
+     [90m 94 
+|[39m[0m
+
+      at warn 
+(js/ui.js:91:17)
+      at 
+renderHistory 
+(js/app.js:224:9)
+      at initApp 
+(js/app.js:253:9)
+      at 
+Object.<anonymous> (te
+sts/app.test.js:130:9)
+
+  ΓùÅ UC-JS-16: 
+Handle Action Tab 
+Click ΓÇ║ should 
+update states, clear 
+inputs, and toggle 
+operators when 
+clicking Arithmetic
+
+    expect(received).t
+oBe(expected) // 
+Object.is equality
+
+    Expected: "flex"
+    Received: "none"
+
+    [0m [90m 112 
+|[39m
+     [90m 113 |[39m 
+        [90m// 3. UI 
+Operators updated 
+visually[39m
+    [31m[1m>[22m[3
+9m[90m 114 |[39m    
+     expect(document[
+33m.[39mquerySelector
+([32m'#operator-selec
+tor'[39m)[33m.[39ms
+tyle[33m.[39mdisplay
+)[33m.[39mtoBe([32m
+'flex'[39m)[33m;[39
+m
+     [90m     |[39m 
+                      
+                      
+                      
+         
+[31m[1m^[22m[39m
+     [90m 115 |[39m 
+        expect(documen
+t[33m.[39mquerySelec
+tor([32m'.operator-bt
+n[data-op="+"]'[39m)
+[33m.[39mclassList[3
+3m.[39mcontains([32m
+'active'[39m))[33m.
+[39mtoBe([36mtrue[39
+m)[33m;[39m
+     [90m 116 |[39m 
+    })[33m;[39m
+     [90m 117 |[39m 
+})[33m;[39m[0m
+
+      at Object.toBe (
+tests/app.test.js:114:
+76)
+
+FAIL tests/api.test.js
+  ΓùÅ UC-JS-06: Load 
+History ΓÇ║ should 
+fetch and return 
+sorted history records
+
+    expect(jest.fn()).
+toHaveBeenCalledWith(.
+..expected)
+
+    Expected: "https:/
+/quantitymeasurementap
+p.onrender.com/history
+?_sort=timestamp&_orde
+r=desc"
+    Received: "https:/
+/quantitymeasurementap
+p.onrender.com/history
+"
+
+    Number of calls: 1
+
+    [0m [90m 170 
+|[39m         
+     [90m 171 |[39m 
+        expect(global
+[33m.[39mfetch)[33m.
+[39mtoHaveBeenCalledT
+imes([35m1[39m)[33m
+;[39m
+    [31m[1m>[22m[3
+9m[90m 172 |[39m    
+     expect(global[33
+m.[39mfetch)[33m.[3
+9mtoHaveBeenCalledWith
+([32m`${BASE_URL}/his
+tory?_sort=timestamp&_
+order=desc`[39m)[33m
+;[39m
+     [90m     |[39m 
+                      
+       
+[31m[1m^[22m[39m
+     [90m 173 |[39m 
+        expect(data)[
+33m.[39mtoEqual(mockR
+ecords)[33m;[39m
+     [90m 174 |[39m 
+        expect(console
+ErrorSpy)[33m.[39mno
+t[33m.[39mtoHaveBeen
+Called()[33m;[39m
+     [90m 175 |[39m 
+    })[33m;[39m[0m
+
+      at Object.toHave
+BeenCalledWith (tests/
+api.test.js:172:30)
+
+FAIL tests/db.test.js
+  ΓùÅ Database Schema 
+Validation (db.json) 
+ΓÇ║ history 
+collection should be 
+initialized as an 
+empty array
+
+    expect(received).t
+oBe(expected) // 
+Object.is equality
+
+    Expected: 0
+    Received: 42
+
+    [0m [90m 33 
+|[39m     
+test([32m'history 
+collection should be 
+initialized as an 
+empty array'[39m[33m
+,[39m () 
+[33m=>[39m {
+     [90m 34 |[39m  
+       expect([33mArr
+ay[39m[33m.[39misAr
+ray(db[33m.[39mhisto
+ry))[33m.[39mtoBe([
+36mtrue[39m)[33m;[3
+9m
+    [31m[1m>[22m[3
+9m[90m 35 |[39m     
+    expect(db[33m.[3
+9mhistory[33m.[39mle
+ngth)[33m.[39mtoBe(
+[35m0[39m)[33m;[39m
+     [90m    |[39m  
+                      
+           
+[31m[1m^[22m[39m
+     [90m 36 |[39m  
+   })[33m;[39m
+     [90m 37 |[39m
+     [90m 38 |[39m  
+   [90m// Checks 
+that the unit 
+definitions contain 
+the correct property 
+structures[39m[0m
+
+      at Object.toBe (
+tests/db.test.js:35:35
+)
+
+Test Suites: 5 
+failed, 5 total
+Tests:       8 
+failed, 38 passed, 46 
+total
+Snapshots:   0 total
+Time:        1.632 s
+Ran all test suites.

@@ -68,6 +68,9 @@ A clean Vanilla JavaScript app for converting, comparing, and doing math with di
 - **Mode Switching:** Clicking between "Conversion" and "Arithmetic" instantly updates the underlying math engine's state configuration.
 - **Dynamic Cleanups:** Safely flushes old input values, purges numerical results, and hides or shows the math operator row strictly on demand natively.
 
+### UC17: Execute Calculation
+- **Dynamic Math Execution:** Wired the `calculate` core algorithm to detect your specific typing, automatically running computations, updating UI screens, and recording History seamlessly in the background.
+
 ## Tech Stack
 
 - HTML5 / CSS3 / Bootstrap 5

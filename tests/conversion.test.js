@@ -1,4 +1,4 @@
-/**
+/*
  * Calculation Module Tests
  * Validates basic math factors and complex formulas.
  * @author Developer
@@ -7,6 +7,7 @@
 
 import { applyConversion, evaluateExpression, compareValues } from '../js/conversion.js';
 
+// Tests conversion mathematics including exact factors and parsed string formulas.
 describe('UC-JS-07: Apply Conversion Factor or Formula', () => {
 
     test('should apply strict numerical factor correctly', () => {
@@ -37,6 +38,7 @@ describe('UC-JS-07: Apply Conversion Factor or Formula', () => {
     });
 });
 
+// Tests arithmetic expression evaluation safely bypassing JS floating-point noise.
 describe('UC-JS-08: Evaluate Arithmetic Expression', () => {
 
     test('should correctly add two numbers and bypass JS float quirks securely', () => {
@@ -54,23 +56,47 @@ describe('UC-JS-08: Evaluate Arithmetic Expression', () => {
         expect(() => evaluateExpression(5, "5", '-')).toThrow("Invalid number");
     });
 
+    test('should correctly multiply two numbers and handle negative values', () => {
+        expect(evaluateExpression(5, -4, '*')).toBe(-20);
+        expect(evaluateExpression(-3, -3, '*')).toBe(9);
+    });
+
+    test('should correctly divide two numbers and round to 6 decimal places', () => {
+        expect(evaluateExpression(10, 3, '/')).toBe(3.333333);
+        expect(evaluateExpression(5, 2, '/')).toBe(2.5);
+    });
+
+    test('should explicitly throw "Division by zero" when attempting to divide by 0', () => {
+        expect(() => evaluateExpression(10, 0, '/')).toThrow("Division by zero");
+    });
+
+    test('should properly handle zero mathematically in multiplication and addition', () => {
+        expect(evaluateExpression(0, 50, '*')).toBe(0);
+        expect(evaluateExpression(0, 50, '+')).toBe(50);
+    });
+
     test('should explicitly throw "Invalid operator" when given unsupported operation types', () => {
-        expect(() => evaluateExpression(10, 5, '*')).toThrow("Invalid operator");
-        expect(() => evaluateExpression(10, 5, '/')).toThrow("Invalid operator");
+        expect(() => evaluateExpression(10, 5, '&')).toThrow("Invalid operator");
+        expect(() => evaluateExpression(10, 5, '^')).toThrow("Invalid operator");
         expect(() => evaluateExpression(10, 5, 'add')).toThrow("Invalid operator");
+    });
+
+    test('should correctly subtract negative numbers yielding a positive result', () => {
+        expect(evaluateExpression(-5, -15, '-')).toBe(10);
     });
 });
 
+// Tests strict mathematical comparison rules bounding base units seamlessly.
 describe('UC-JS-09: Compare Two Measurement Values', () => {
 
-    test('should return exactly GREATER, LESS, or EQUAL statements correctly', () => {
-        expect(compareValues(2, 'kg', 100, 'g', 2000, 100)).toBe("2 kg is GREATER than 100 g");
-        expect(compareValues(5, 'cm', 1, 'm', 0.05, 1)).toBe("5 cm is LESS than 1 m");
-        expect(compareValues(10, 'mm', 1, 'cm', 0.01, 0.01)).toBe("10 mm is EQUAL to 1 cm");
+    test('should return exactly 1, -1, or 0 correctly', () => {
+        expect(compareValues(2000, 100)).toBe(1); // 2000 > 100
+        expect(compareValues(0.05, 1)).toBe(-1); // 0.05 < 1
+        expect(compareValues(0.01, 0.01)).toBe(0); // 0.01 == 0.01
     });
 
-    test('should return fallback invalid sentence if base values are NaN', () => {
-        expect(compareValues(2, 'kg', 100, 'g', NaN, 100)).toBe("Invalid values — cannot compare");
-        expect(compareValues(2, 'kg', 100, 'g', 2000, NaN)).toBe("Invalid values — cannot compare");
+    test('should explicitly throw "Invalid number" if base values are NaN', () => {
+        expect(() => compareValues(NaN, 100)).toThrow("Invalid number");
+        expect(() => compareValues(2000, NaN)).toThrow("Invalid number");
     });
 });

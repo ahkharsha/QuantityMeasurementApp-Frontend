@@ -1,4 +1,4 @@
-/**
+/*
  * API Module Tests
  * Validates network communication functions and error handling.
  * @author Developer
@@ -8,6 +8,7 @@
 import { getUnits, getConversion, saveHistory, getHistory, BASE_URL } from '../js/api.js';
 import { jest } from '@jest/globals';
 
+// Tests fetching measurement units from the API.
 describe('UC-JS-03: Fetch Units by Type', () => {
     
     beforeEach(() => {
@@ -56,6 +57,7 @@ describe('UC-JS-03: Fetch Units by Type', () => {
     });
 });
 
+// Tests fetching a single conversion rule for a unit pair.
 describe('UC-JS-04: Fetch Conversion Record', () => {
     
     beforeEach(() => {
@@ -93,6 +95,7 @@ describe('UC-JS-04: Fetch Conversion Record', () => {
     });
 });
 
+// Tests saving calculation results back to the server history.
 describe('UC-JS-05: Save to History', () => {
     let consoleErrorSpy;
 
@@ -138,6 +141,7 @@ describe('UC-JS-05: Save to History', () => {
     });
 });
 
+// Tests retrieving chronological history logs from the server.
 describe('UC-JS-06: Load History', () => {
     let consoleErrorSpy;
 
@@ -165,7 +169,7 @@ describe('UC-JS-06: Load History', () => {
         const data = await getHistory();
         
         expect(global.fetch).toHaveBeenCalledTimes(1);
-        expect(global.fetch).toHaveBeenCalledWith(`${BASE_URL}/history?_sort=timestamp&_order=desc`);
+        expect(global.fetch).toHaveBeenCalledWith(`${BASE_URL}/history`);
         expect(data).toEqual(mockRecords);
         expect(consoleErrorSpy).not.toHaveBeenCalled();
     });

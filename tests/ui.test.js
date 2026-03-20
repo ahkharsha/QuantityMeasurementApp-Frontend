@@ -1,4 +1,4 @@
-/**
+/*
  * UI Module Tests
  * Validates DOM rendering and updates.
  * @author Developer
@@ -9,6 +9,7 @@
 import { populateDropdown, setActive, showResult, toggleOperators, renderHistory } from '../js/ui.js';
 import { jest } from '@jest/globals';
 
+// Tests DOM injection of dropdown unit options arrays safely checking structures.
 describe('UC-JS-10: Populate Unit Dropdown', () => {
     let selectEl;
     let consoleWarnSpy;
@@ -59,6 +60,7 @@ describe('UC-JS-10: Populate Unit Dropdown', () => {
     });
 });
 
+// Tests visual active-state toggling removing trailing selections natively across UI peer buttons.
 describe('UC-JS-11: Set Active Button', () => {
     let parentEl;
 
@@ -92,6 +94,7 @@ describe('UC-JS-11: Set Active Button', () => {
     });
 });
 
+// Tests writing output strings mapped dynamically firing visual panel animations concurrently.
 describe('UC-JS-12: Show Result', () => {
     beforeEach(() => {
         document.body.innerHTML = `
@@ -139,6 +142,7 @@ describe('UC-JS-12: Show Result', () => {
     });
 });
 
+// Tests dynamic bootstrap-specific operator row display class mappings explicitly.
 describe('UC-JS-13: Toggle Operator Row', () => {
     let opRow;
     let consoleWarnSpy;
@@ -157,13 +161,15 @@ describe('UC-JS-13: Toggle Operator Row', () => {
 
     test('should set display to flex when show is true', () => {
         toggleOperators(true);
-        expect(opRow.style.display).toBe('flex');
+        expect(opRow.classList.contains('d-flex')).toBe(true);
+        expect(opRow.classList.contains('d-none')).toBe(false);
     });
 
     test('should set display to none when show is false', () => {
-        opRow.style.display = 'flex'; // Initial state
+        opRow.classList.add('d-flex'); // Initial state
         toggleOperators(false);
-        expect(opRow.style.display).toBe('none');
+        expect(opRow.classList.contains('d-none')).toBe(true);
+        expect(opRow.classList.contains('d-flex')).toBe(false);
     });
 
     test('should log warning and safely return if element is missing', () => {
@@ -173,6 +179,7 @@ describe('UC-JS-13: Toggle Operator Row', () => {
     });
 });
 
+// Tests injecting history arrays into the DOM unordered list avoiding innerHTML vulnerabilities.
 describe('UC-JS-14: Render History List', () => {
     let listEl;
     let consoleWarnSpy;
